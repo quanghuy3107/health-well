@@ -39,6 +39,7 @@
 
 
     <!-- Fonts -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -127,17 +128,20 @@
     <!-- Header / Menu -->
     <header class="fixed w-full top-0 z-50 glass shadow-sm bg-white/95 backdrop-blur-xl" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-16 md:h-20">
                 <!-- Logo -->
-                <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                        FW
+                <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer group" aria-label="HomeWellness Home">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300">
+                        <img src="{{ asset('images/logo.png') }}" alt="HomeWellness logo" class="absolute w-[320%] max-w-none" style="top: -18%; left: -110%;" />
                     </div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell</span>
+                    <div class="leading-none">
+                        <span class="block text-base md:text-lg font-extrabold tracking-tight text-dark-darker group-hover:text-brand transition-colors duration-200">HomeWellness</span>
+                        <span class="block text-[10px] md:text-xs text-brand font-semibold tracking-widest uppercase">Smart Home Vitality</span>
+                    </div>
                 </a>
                 
                 <!-- Desktop Menu -->
-                <nav class="hidden md:flex space-x-10">
+                <nav class="hidden md:flex space-x-8 lg:space-x-10">
                     <a href="{{ url('/') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Home</a>
                     <a href="{{ route('blog.index') }}" class="text-brand font-bold transition-colors duration-200">Blog</a>
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
@@ -146,12 +150,21 @@
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button class="text-dark hover:text-brand focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-dark hover:text-brand focus:outline-none p-2" aria-label="Toggle menu">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
                 </div>
+            </div>
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <nav class="flex flex-col gap-1">
+                    <a href="{{ url('/') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Home</a>
+                    <a href="{{ route('blog.index') }}" class="px-4 py-2.5 rounded-lg text-brand font-bold hover:bg-brand/5 transition-all duration-200">Blog</a>
+                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Health</a>
+                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Training</a>
+                </nav>
             </div>
         </div>
     </header>
@@ -274,10 +287,13 @@
                 <!-- Brand Col -->
                 <div class="md:col-span-5">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl">
-                            FW
+                        <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30">
+                            <img src="{{ asset('images/logo.png') }}" alt="HomeWellness logo" class="absolute w-[320%] max-w-none" style="top: -18%; left: -110%;" />
                         </div>
-                        <span class="font-bold text-2xl tracking-tight text-white">FitWell</span>
+                        <div class="leading-none">
+                            <span class="block text-lg font-extrabold tracking-tight text-white">HomeWellness</span>
+                            <span class="block text-xs text-brand font-semibold tracking-widest uppercase mt-0.5">Smart Home Vitality</span>
+                        </div>
                     </div>
                     <p class="text-gray-400 text-base leading-relaxed mb-6 pr-4">
                         Reinvent your living space, elevate your health. A comprehensive solution for home workouts and purifying your living environment.
@@ -316,5 +332,12 @@
             </div>
         </div>
     </footer>
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+        }
+    </script>
 </body>
 </html>

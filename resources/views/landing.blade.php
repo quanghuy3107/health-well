@@ -7,6 +7,7 @@
     <meta name="description" content="Discover the best home gym equipment 2026, clean whey protein for sensitive stomach, and top-rated cordless vacuums for pet hair. Your complete home fitness and wellness guide.">
     
     <!-- Fonts -->
+    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -50,7 +51,7 @@
       "@@type": "Organization",
       "name": "FitWell 2026",
       "url": "https://fitwell2026.com",
-      "logo": "https://fitwell2026.com/logo.png",
+      "logo": "{{ asset('images/logo.png') }}",
       "description": "Your trusted source for the best home gym equipment 2026, clean whey protein for sensitive stomach, and top-rated cordless vacuums for pet hair."
     }
     </script>
@@ -59,7 +60,7 @@
       "@@context": "https://schema.org/",
       "@@type": "Product",
       "name": "Home Fitness & Wellness 2026 Premium Solutions",
-      "image": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80",
+      "image": "{{ asset('images/home-fitness-setup.jpg') }}",
       "description": "The ultimate selection of the best home gym equipment 2026, clean whey protein, and top-rated cordless vacuums.",
       "brand": {
         "@@type": "Brand",
@@ -80,17 +81,27 @@
     <!-- Header / Menu -->
     <header class="fixed w-full top-0 z-50 glass transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-20">
+            <div class="flex justify-between items-center h-16 md:h-20">
                 <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-3 cursor-pointer">
-                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-xl shadow-lg">
-                        FW
+                <a href="#home" class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer group" aria-label="HomeWellness Home">
+                    <!-- Icon crop wrapper: only shows the circular emblem portion of the logo image -->
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300">
+                        <img
+                            src="{{ asset('images/logo.png') }}"
+                            alt="HomeWellness logo"
+                            class="absolute w-[320%] max-w-none"
+                            style="top: -18%; left: -110%; transform: none;"
+                        />
                     </div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell</span>
-                </div>
+                    <!-- Brand name text -->
+                    <div class="leading-none">
+                        <span class="block text-base md:text-lg font-extrabold tracking-tight text-dark-darker group-hover:text-brand transition-colors duration-200">HomeWellness</span>
+                        <span class="block text-[10px] md:text-xs text-brand font-semibold tracking-widest uppercase">Smart Home Vitality</span>
+                    </div>
+                </a>
                 
                 <!-- Desktop Menu -->
-                <nav class="hidden md:flex space-x-10">
+                <nav class="hidden md:flex space-x-8 lg:space-x-10">
                     <a href="#home" class="text-dark font-medium hover:text-brand transition-colors duration-200">Home</a>
                     <a href="{{ route('blog.index') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Blog</a>
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
@@ -100,12 +111,23 @@
 
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
-                    <button class="text-dark hover:text-brand focus:outline-none">
+                    <button id="mobile-menu-btn" class="text-dark hover:text-brand focus:outline-none p-2" aria-label="Toggle menu">
                         <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
                 </div>
+            </div>
+
+            <!-- Mobile Menu Dropdown -->
+            <div id="mobile-menu" class="md:hidden hidden pb-4">
+                <nav class="flex flex-col gap-1">
+                    <a href="#home" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Home</a>
+                    <a href="{{ route('blog.index') }}" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Blog</a>
+                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Health</a>
+                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Training</a>
+                    <a href="#about" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">About Us</a>
+                </nav>
             </div>
         </div>
     </header>
@@ -114,7 +136,7 @@
     <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
         <!-- Background Image with Gradient Overlay -->
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Modern clean home interior with smart health solutions" class="w-full h-full object-cover object-center" />
+            <img src="{{ asset('images/modern-clean-home.jpg') }}" alt="Modern clean home interior with smart health solutions" class="w-full h-full object-cover object-center" />
             <div class="absolute inset-0 bg-gradient-to-r from-dark-darker/95 via-dark-darker/80 to-brand/30"></div>
         </div>
 
@@ -253,7 +275,7 @@
 
                 <!-- Image side -->
                 <div class="relative group rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2">
-                    <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Top-rated cordless vacuums for pet hair and HEPA air purifiers" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
+                    <img src="{{ asset('images/cordless-vacuums-clean-home.jpg') }}" alt="Top-rated cordless vacuums for pet hair and HEPA air purifiers" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
                     <!-- Subtile overlay -->
                     <div class="absolute inset-0 bg-brand/5 mix-blend-overlay"></div>
                 </div>
@@ -275,7 +297,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <!-- Image side -->
                 <div class="relative group rounded-3xl overflow-hidden shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1584735935682-2f2b69dff9d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Best adjustable dumbbells for home gym 2026 and Clean whey protein for sensitive stomach" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
+                    <img src="{{ asset('images/workout-equipment.jpg') }}" alt="Best adjustable dumbbells for home gym 2026 and Clean whey protein for sensitive stomach" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
                     <div class="absolute inset-0 bg-gradient-to-t from-dark-darker/80 via-transparent to-transparent"></div>
                     <div class="absolute bottom-0 left-0 p-8">
                         <span class="px-4 py-1.5 bg-brand text-white text-xs font-bold rounded-full uppercase tracking-wider shadow-lg">Top Rated 2026</span>
@@ -360,10 +382,19 @@
                 <!-- Brand Col -->
                 <div class="md:col-span-5">
                     <div class="flex items-center gap-3 mb-6">
-                        <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl">
-                            FW
+                        <!-- Footer logo: same crop technique as navbar -->
+                        <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30">
+                            <img
+                                src="{{ asset('images/logo.png') }}"
+                                alt="HomeWellness logo"
+                                class="absolute w-[320%] max-w-none"
+                                style="top: -18%; left: -110%;"
+                            />
                         </div>
-                        <span class="font-bold text-2xl tracking-tight text-white">FitWell</span>
+                        <div class="leading-none">
+                            <span class="block text-lg font-extrabold tracking-tight text-white">HomeWellness</span>
+                            <span class="block text-xs text-brand font-semibold tracking-widest uppercase mt-0.5">Smart Home Vitality</span>
+                        </div>
                     </div>
                     <p class="text-gray-400 text-base leading-relaxed mb-6 pr-4">
                         Reinvent your living space, elevate your health. A comprehensive solution for home workouts and purifying your living environment.
@@ -420,13 +451,27 @@
             }
         });
 
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close mobile menu when a link is clicked
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
         // Smooth Scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>

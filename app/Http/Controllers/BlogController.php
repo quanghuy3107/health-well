@@ -13,7 +13,7 @@ class BlogController extends Controller
                 'slug' => 'best-cordless-vacuums-2026',
                 'title' => 'The 5 Best Cordless Vacuums for a Cleaner Home in 2026',
                 'excerpt' => 'Discover the top 5 cordless vacuums of 2026, featuring high-performance suction, AI technology, and advanced HEPA filtration for a spotless home.',
-                'image' => 'https://images.unsplash.com/photo-1558317374-067fb5f30001?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80',
+                'image' => asset('images/cordless-vacuums-blog.jpg'),
                 'date' => 'May 4, 2026',
                 'category' => 'Smart Health',
                 'author' => 'Sarah Jenkins',
@@ -25,7 +25,7 @@ class BlogController extends Controller
 <div class=\"not-prose my-10 bg-white border-2 border-brand/20 rounded-2xl p-6 shadow-xl flex flex-col sm:flex-row items-center gap-6 relative overflow-hidden\">
     <div class=\"absolute top-0 right-0 bg-brand text-white text-xs font-bold px-3 py-1 rounded-bl-xl uppercase tracking-wider\">#1 Overall Pick</div>
     <div class=\"w-full sm:w-1/3 flex-shrink-0\">
-        <img src=\"https://images.unsplash.com/photo-1558317374-067fb5f30001?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80\" alt=\"Dyson Gen5detect Absolute\" class=\"w-full h-auto rounded-xl object-cover\">
+        <img src=\"" . asset('images/cordless-vacuums-blog.jpg') . "\" alt=\"Dyson Gen5detect Absolute\" class=\"w-full h-auto rounded-xl object-cover\">
     </div>
     <div class=\"w-full sm:w-2/3 flex flex-col\">
         <h3 class=\"text-2xl font-extrabold text-dark-darker mb-2\">Dyson Gen5detect Absolute</h3>
@@ -94,7 +94,7 @@ class BlogController extends Controller
                 'meta_description' => 'Cut through smoke, allergens & pet dander. We tested the top 5 HEPA H13 air purifiers of 2026. Find your perfect match — view full specs & deals now.',
                 'focus_keywords' => ['best air purifier 2026', 'HEPA H13 filter air purifier', 'air quality sensor purifier', 'smoke and odor removal air purifier', 'air purifier for large rooms'],
                 'excerpt' => 'Indoor air quality has never mattered more. From wildfire smoke to pet dander, discover the 5 best air purifiers of 2026 with HEPA H13 filtration and smart air quality sensors.',
-                'image' => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                'image' => asset('images/air-purifiers.jpg'),
                 'image_alt' => 'Top 5 best air purifiers of 2026 with HEPA H13 filtration and smart air quality sensor',
                 'date' => 'May 4, 2026',
                 'published_date' => '2026-05-04T21:00:00+07:00',
@@ -106,7 +106,7 @@ class BlogController extends Controller
                     '@type'            => 'BlogPosting',
                     'headline'         => 'Top 5 Best Air Purifiers for a Healthier Home in 2026: Expert Reviews',
                     'description'      => 'Cut through smoke, allergens & pet dander. We tested the top 5 HEPA H13 air purifiers of 2026. Find your perfect match — view full specs & deals now.',
-                    'image'            => 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80',
+                    'image'            => asset('images/air-purifiers.jpg'),
                     'datePublished'    => '2026-05-04T21:00:00+07:00',
                     'dateModified'     => '2026-05-04T21:00:00+07:00',
                     'author'           => ['@type' => 'Person', 'name' => 'Dr. Mia Collins'],

@@ -18,7 +18,7 @@ class PageController extends Controller
         $products = $this->getProductsByCategory('training');
 
         $banner = [
-            'image' => 'https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1600',
+            'image' => asset('images/peak-performance-fitness.jpg'),
             'title' => 'Peak Performance at Home',
             'subtitle' => 'Premium supplements and equipment to crush your fitness goals.',
         ];
@@ -31,7 +31,7 @@ class PageController extends Controller
         $products = $this->getProductsByCategory('health');
 
         $banner = [
-            'image' => 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=1600',
+            'image' => asset('images/healthier-sanctuary-home.jpg'),
             'title' => 'A Healthier Sanctuary',
             'subtitle' => 'Smart solutions for a cleaner, safer, and more relaxing home environment.',
         ];
