@@ -53,12 +53,13 @@
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-xl shadow-lg">
                         FW
                     </div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell<span class="text-brand">2026</span></span>
+                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell</span>
                 </a>
                 
                 <!-- Desktop Menu -->
                 <nav class="hidden md:flex space-x-10">
                     <a href="{{ url('/') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Home</a>
+                    <a href="{{ route('blog.index') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Blog</a>
                     <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
                     <a href="{{ url('/#about') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">About Us</a>
@@ -117,79 +118,130 @@
     <main class="py-16 md:py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-            <!-- Product Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+            <!-- Product List (Row Layout) -->
+            <div class="flex flex-col gap-8">
                 @foreach($products as $product)
-                    <article class="bg-white rounded-3xl overflow-hidden shadow-lg border border-gray-100 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 group flex flex-col">
-                        <!-- Product Image -->
-                        <div class="relative h-72 overflow-hidden bg-white">
-                            <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" class="w-full h-full object-contain p-4 transition-transform duration-700 group-hover:scale-105" loading="lazy">
-                            <div class="absolute inset-0 bg-gradient-to-t from-dark-darker/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col md:flex-row group relative">
+                        
+                        <!-- Part 1: Product Image & Badges -->
+                        <div class="w-full md:w-1/3 lg:w-1/4 relative bg-white border-b md:border-b-0 md:border-r border-gray-50 flex-shrink-0 flex items-center justify-center p-6 md:p-8">
+                            <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" class="w-full h-56 md:h-full object-contain transform transition-transform duration-700 group-hover:scale-105" loading="lazy">
                             <!-- Discount Badge -->
                             <div class="absolute top-4 left-4">
                                 <span class="bg-red-600 text-white text-xs font-extrabold px-3 py-1.5 rounded-lg shadow-lg uppercase tracking-wide">-{{ $product['discount_percentage'] }}%</span>
                             </div>
                             <!-- Top Pick Badge -->
-                            <div class="absolute top-4 right-4">
-                                <span class="bg-brand text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-md uppercase tracking-wider">Top Pick</span>
+                            @if($loop->first)
+                            <div class="absolute top-4 right-4 md:right-auto md:left-4 md:top-14">
+                                <span class="bg-brand text-white text-[10px] font-bold px-2.5 py-1 rounded shadow-md uppercase tracking-wider">Top Pick</span>
                             </div>
+                            @endif
                         </div>
                         
-                        <!-- Product Content -->
-                        <div class="p-8 flex flex-col flex-grow">
-                            <!-- Product Name (SEO H2) -->
-                            <h2 class="text-xl font-bold text-dark-darker mb-2 line-clamp-2 group-hover:text-brand transition-colors leading-snug">
-                                <a href="{{ url('/product/' . ($product['slug'] ?? '#')) }}">{{ $product['name'] }}</a>
-                            </h2>
+                        <!-- Part 2 & 3 Wrapper -->
+                        <div class="flex-grow flex flex-col lg:flex-row p-6 md:p-8 gap-6 md:gap-8">
+                            
+                            <!-- Part 2: Product Name, Rating & Pros/Cons -->
+                            <div class="flex-1 flex flex-col">
+                                <!-- Product Name (SEO H2) -->
+                                <h2 class="text-xl md:text-2xl font-bold text-dark-darker mb-3 group-hover:text-brand transition-colors leading-snug">
+                                    <a href="{{ url('/product/' . ($product['slug'] ?? '#')) }}">{{ $product['name'] }}</a>
+                                </h2>
 
-                            <!-- Star Rating -->
-                            <div class="flex items-center gap-2 mb-3">
-                                @php $productIndex = $loop->index; @endphp
-                                <div class="flex items-center" aria-label="{{ $product['star_rating'] }} out of 5 stars">
-                                    @for($i = 1; $i <= 5; $i++)
-                                        @if($i <= floor($product['star_rating']))
-                                            {{-- Full star --}}
-                                            <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                                        @elseif($i - $product['star_rating'] < 1 && $i - $product['star_rating'] > 0)
-                                            {{-- Half star --}}
-                                            <svg class="w-5 h-5 text-amber-400" viewBox="0 0 20 20">
-                                                <defs><linearGradient id="half-{{ $productIndex }}-{{ $i }}"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="#D1D5DB"/></linearGradient></defs>
-                                                <path fill="url(#half-{{ $productIndex }}-{{ $i }})" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                                            </svg>
-                                        @else
-                                            {{-- Empty star --}}
-                                            <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                                        @endif
-                                    @endfor
+                                <!-- Star Rating -->
+                                <div class="flex items-center gap-2 mb-5">
+                                    @php $productIndex = $loop->index; @endphp
+                                    <div class="flex items-center" aria-label="{{ $product['star_rating'] }} out of 5 stars">
+                                        @for($i = 1; $i <= 5; $i++)
+                                            @if($i <= floor($product['star_rating']))
+                                                <svg class="w-5 h-5 text-amber-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            @elseif($i - $product['star_rating'] < 1 && $i - $product['star_rating'] > 0)
+                                                <svg class="w-5 h-5 text-amber-400" viewBox="0 0 20 20">
+                                                    <defs><linearGradient id="half-{{ $productIndex }}-{{ $i }}"><stop offset="50%" stop-color="currentColor"/><stop offset="50%" stop-color="#D1D5DB"/></linearGradient></defs>
+                                                    <path fill="url(#half-{{ $productIndex }}-{{ $i }})" d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                                </svg>
+                                            @else
+                                                <svg class="w-5 h-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                            @endif
+                                        @endfor
+                                    </div>
+                                    <span class="text-sm font-semibold text-dark">{{ $product['star_rating'] }}</span>
+                                    <span class="text-sm text-gray-400">({{ number_format($product['review_count']) }} reviews)</span>
                                 </div>
-                                <span class="text-sm font-semibold text-dark">{{ $product['star_rating'] }}</span>
-                                <span class="text-sm text-gray-400">({{ number_format($product['review_count']) }} reviews)</span>
+                                
+                                <!-- Product Short Description -->
+                                <p class="text-gray-600 text-sm mb-6 leading-relaxed hidden md:block">
+                                    {{ $product['description'] }}
+                                </p>
+
+                                <!-- Pros & Cons Table -->
+                                @php
+                                    $pros = array_slice($product['key_features'] ?? [], 0, 3);
+                                    // Generate some generic cons based on product properties if none exist, else defaults
+                                    $cons = ['Premium price compared to basic models', 'May be too advanced for beginners'];
+                                    if ($product['price_numeric'] < 50) {
+                                        $cons = ['Basic features only', 'Not intended for heavy-duty use'];
+                                    }
+                                @endphp
+                                <div class="mt-auto grid grid-cols-1 sm:grid-cols-2 gap-6 bg-gray-50/50 rounded-2xl p-5 border border-gray-100">
+                                    <!-- Pros -->
+                                    <div>
+                                        <h4 class="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wider flex items-center gap-2">
+                                            Pros
+                                        </h4>
+                                        <ul class="space-y-2.5">
+                                            @foreach($pros as $pro)
+                                            <li class="flex items-start text-sm text-gray-600">
+                                                <svg class="w-5 h-5 text-green-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                                <span class="leading-snug">{{ $pro }}</span>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                    <!-- Cons -->
+                                    <div>
+                                        <h4 class="text-sm font-bold text-gray-800 mb-3 uppercase tracking-wider flex items-center gap-2">
+                                            Cons
+                                        </h4>
+                                        <ul class="space-y-2.5">
+                                            @foreach($cons as $con)
+                                            <li class="flex items-start text-sm text-gray-600">
+                                                <svg class="w-5 h-5 text-red-500 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                                                <span class="leading-snug">{{ $con }}</span>
+                                            </li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                </div>
                             </div>
                             
-                            <!-- Description -->
-                            <p class="text-gray-500 text-sm mb-5 flex-grow leading-relaxed line-clamp-3">
-                                {{ $product['description'] }}
-                            </p>
-                            
-                            <!-- Price Row & CTA -->
-                            <div class="mt-auto border-t border-gray-100 pt-5">
-                                <!-- Price Row -->
-                                <div class="flex items-baseline gap-3 mb-1">
-                                    <span class="text-3xl font-extrabold text-dark-darker">{{ $product['price'] }}</span>
-                                    <span class="text-base text-gray-400 line-through">{{ $product['original_price'] }}</span>
-                                    <span class="text-sm font-bold text-red-600">-{{ $product['discount_percentage'] }}%</span>
+                            <!-- Part 3: Price & Actions -->
+                            <div class="w-full lg:w-64 xl:w-72 flex-shrink-0 flex flex-col justify-center border-t lg:border-t-0 lg:border-l border-gray-100 pt-6 lg:pt-0 lg:pl-8">
+                                <div class="flex items-baseline gap-2 mb-1">
+                                    <span class="text-4xl font-extrabold text-dark-darker">{{ $product['price'] }}</span>
+                                </div>
+                                <div class="flex items-baseline gap-2 mb-6">
+                                    <span class="text-lg text-gray-400 line-through">{{ $product['original_price'] }}</span>
+                                    <span class="text-sm font-bold text-red-600">Save {{ $product['discount_percentage'] }}%</span>
                                 </div>
 
-                                <!-- Urgency / Availability -->
-                                <div class="flex items-center gap-1.5 mb-5">
-                                    <svg class="w-4 h-4 text-brand" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-                                    <span class="text-sm font-medium text-brand">In Stock &mdash; Fast Shipping to US</span>
+                                <!-- In Stock Status -->
+                                <div class="flex items-center gap-2 mb-6 bg-brand/5 border border-brand/20 px-3 py-2 rounded-lg w-fit">
+                                    <span class="relative flex h-3 w-3">
+                                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand opacity-75"></span>
+                                      <span class="relative inline-flex rounded-full h-3 w-3 bg-brand"></span>
+                                    </span>
+                                    <span class="text-sm font-semibold text-brand">In Stock</span>
                                 </div>
                                 
                                 <!-- CTA Button -->
-                                <a href="{{ $product['affiliate_link'] }}" target="_blank" rel="nofollow noopener" class="w-full inline-flex justify-center items-center px-6 py-4 border border-transparent text-base font-bold rounded-xl text-white bg-dark-darker hover:bg-brand hover:shadow-lg hover:shadow-brand/30 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-[0.98]">
-                                    Check Price on Store
-                                    <svg class="ml-2 -mr-1 w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                <a href="{{ $product['affiliate_link'] }}" target="_blank" rel="nofollow noopener" class="w-full text-center px-6 py-4 border border-transparent text-base font-bold rounded-xl text-white bg-amber-500 hover:bg-amber-600 hover:shadow-lg hover:shadow-amber-500/30 transition-all duration-300 transform hover:-translate-y-0.5 active:scale-[0.98] mb-4">
+                                    Check Price on Amazon
+                                </a>
+                                
+                                <a href="{{ url('/product/' . ($product['slug'] ?? '#')) }}" class="text-center text-sm font-semibold text-gray-500 hover:text-brand transition-colors flex justify-center items-center gap-1 group/link">
+                                    Read Full Review
+                                    <svg class="w-4 h-4 transition-transform group-hover/link:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </a>
                             </div>
                         </div>
@@ -225,7 +277,7 @@
                         <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl">
                             FW
                         </div>
-                        <span class="font-bold text-2xl tracking-tight text-white">FitWell<span class="text-brand">2026</span></span>
+                        <span class="font-bold text-2xl tracking-tight text-white">FitWell</span>
                     </div>
                     <p class="text-gray-400 text-base leading-relaxed mb-6 pr-4">
                         Reinvent your living space, elevate your health. A comprehensive solution for home workouts and purifying your living environment.

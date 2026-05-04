@@ -54,14 +54,15 @@
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-xl shadow-lg">
                         FW
                     </div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell<span class="text-brand">2026</span></span>
+                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell</span>
                 </div>
                 
                 <!-- Desktop Menu -->
                 <nav class="hidden md:flex space-x-10">
                     <a href="#home" class="text-dark font-medium hover:text-brand transition-colors duration-200">Home</a>
-                    <a href="#training" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
+                    <a href="{{ route('blog.index') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Blog</a>
                     <a href="#health" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
+                    <a href="#training" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
                     <a href="#about" class="text-dark font-medium hover:text-brand transition-colors duration-200">About Us</a>
                 </nav>
 
@@ -272,7 +273,7 @@
                         <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl">
                             FW
                         </div>
-                        <span class="font-bold text-2xl tracking-tight text-white">FitWell<span class="text-brand">2026</span></span>
+                        <span class="font-bold text-2xl tracking-tight text-white">FitWell</span>
                     </div>
                     <p class="text-gray-400 text-base leading-relaxed mb-6 pr-4">
                         Tái tạo không gian sống, nâng tầm sức khỏe. Giải pháp toàn diện cho việc tập luyện và thanh lọc môi trường sống tại nhà của bạn.

@@ -79,10 +79,11 @@
             <div class="flex justify-between items-center h-16 lg:h-20">
                 <a href="{{ url('/') }}" class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-xl shadow-lg">FW</div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell<span class="text-brand">2026</span></span>
+                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell</span>
                 </a>
                 <nav class="hidden md:flex space-x-10">
-                    <a href="{{ url('/') }}" class="text-dark font-medium hover:text-brand transition-colors">Home</a>
+                    <a href="{{ url('/') }}" class="text-dark font-medium  hover:text-brand transition-colors">Home</a>
+                    <a href="{{ route('blog.index') }}" class="text-dark font-medium  hover:text-brand transition-colors">Blog</a>
                     <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors">Training</a>
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors">Health</a>
                     <a href="{{ url('/#about') }}" class="text-dark font-medium hover:text-brand transition-colors">About Us</a>
@@ -294,7 +295,7 @@
                 <div class="md:col-span-5">
                     <div class="flex items-center gap-3 mb-5">
                         <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl">FW</div>
-                        <span class="font-bold text-2xl tracking-tight text-white">FitWell<span class="text-brand">2026</span></span>
+                        <span class="font-bold text-2xl tracking-tight text-white">FitWell</span>
                     </div>
                     <p class="text-gray-400 text-base leading-relaxed pr-4">
                         Reinvent your living space, elevate your health. A comprehensive solution for home workouts and purifying your living environment.

@@ -86,14 +86,15 @@
                     <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand to-brand-dark flex items-center justify-center text-white font-bold text-xl shadow-lg">
                         FW
                     </div>
-                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell<span class="text-brand">2026</span></span>
+                    <span class="font-extrabold text-xl tracking-tight text-dark-darker">FitWell</span>
                 </div>
                 
                 <!-- Desktop Menu -->
                 <nav class="hidden md:flex space-x-10">
                     <a href="#home" class="text-dark font-medium hover:text-brand transition-colors duration-200">Home</a>
-                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
+                    <a href="{{ route('blog.index') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Blog</a>
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
+                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
                     <a href="#about" class="text-dark font-medium hover:text-brand transition-colors duration-200">About Us</a>
                 </nav>
 
@@ -113,7 +114,7 @@
     <section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden flex items-center min-h-[90vh]">
         <!-- Background Image with Gradient Overlay -->
         <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Home Fitness Setup - Best home gym equipment 2026" class="w-full h-full object-cover object-center" />
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Modern clean home interior with smart health solutions" class="w-full h-full object-cover object-center" />
             <div class="absolute inset-0 bg-gradient-to-r from-dark-darker/95 via-dark-darker/80 to-brand/30"></div>
         </div>
 
@@ -129,18 +130,139 @@
                 Discover the perfect synergy of premium home workout gear and smart living space purifiers. Designed specifically for your modern lifestyle.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <a href="#training" class="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-semibold rounded-full shadow-lg text-white bg-brand hover:bg-brand-dark transition-all duration-300 transform hover:-translate-y-1 hover:shadow-brand/50">
-                    Explore Training Gear
-                </a>
-                <a href="#health" class="inline-flex justify-center items-center px-8 py-4 border-2 border-white/80 text-base font-semibold rounded-full shadow-sm text-white hover:bg-white hover:text-dark-darker transition-all duration-300 transform hover:-translate-y-1 glass">
+                <a href="#health" class="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-semibold rounded-full shadow-lg text-white bg-brand hover:bg-brand-dark transition-all duration-300 transform hover:-translate-y-1 hover:shadow-brand/50">
                     Discover Smart Health
+                </a>
+                <a href="#training" class="inline-flex justify-center items-center px-8 py-4 border-2 border-white/80 text-base font-semibold rounded-full shadow-sm text-white hover:bg-white hover:text-dark-darker transition-all duration-300 transform hover:-translate-y-1 glass">
+                    Explore Training Gear
                 </a>
             </div>
         </div>
     </section>
 
-    <!-- Category 1 - Home Training -->
-    <section id="training" class="py-24 bg-white relative">
+    <!-- Trending Now / Top Picks Section -->
+    <section id="trending" class="py-24 bg-gray-50 relative border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm text-brand font-bold tracking-widest uppercase">Top Picks</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-dark-darker sm:text-4xl">
+                    Trending Now
+                </p>
+                <div class="w-16 h-1 bg-brand mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8 mb-16">
+                @foreach($trendingProducts as $product)
+                <div class="bg-white rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col group overflow-hidden">
+                    <div class="relative pt-[100%] bg-white overflow-hidden border-b border-gray-50">
+                        <img src="{{ $product['image'] }}" alt="{{ $product['name'] }}" class="absolute inset-0 w-full h-full object-contain p-4 transform transition-transform duration-700 group-hover:scale-105" />
+                        <div class="absolute top-3 left-3 z-10">
+                            <span class="px-2 py-1 bg-brand text-white text-[10px] sm:text-xs font-bold rounded shadow-sm uppercase tracking-wider">Best Seller</span>
+                        </div>
+                    </div>
+                    <div class="p-4 sm:p-5 flex flex-col flex-grow">
+                        <div class="flex items-center space-x-1 mb-2">
+                            <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                            </svg>
+                            <span class="text-xs sm:text-sm font-medium text-gray-600">{{ $product['star_rating'] ?? '4.8' }}</span>
+                        </div>
+                        <h3 class="text-sm sm:text-base font-bold text-dark-darker line-clamp-2 mb-2 flex-grow" title="{{ $product['name'] }}">
+                            {{ $product['name'] }}
+                        </h3>
+                        <div class="mt-auto pt-3">
+                            <div class="text-lg sm:text-xl font-extrabold text-brand mb-3">
+                                {{ $product['price'] }}
+                            </div>
+                            <a href="{{ route('product.detail', $product['slug']) }}" class="block w-full text-center px-4 py-2 sm:py-2.5 border-2 border-brand text-brand font-semibold rounded-xl hover:bg-brand hover:text-white transition-colors duration-200 text-sm">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row justify-center gap-4">
+                <a href="{{ url('/health/smart-home-wellness-tools') }}" class="inline-flex justify-center items-center px-8 py-4 border border-transparent text-sm sm:text-base font-bold rounded-xl shadow-lg text-white bg-dark-darker hover:bg-dark transition-all duration-300">
+                    Explore All Health
+                    <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+                <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="inline-flex justify-center items-center px-8 py-4 border-2 border-gray-200 text-sm sm:text-base font-bold rounded-xl shadow-sm text-dark-darker bg-white hover:border-gray-300 hover:bg-gray-50 transition-all duration-300">
+                    Explore All Training
+                    <svg class="ml-2 -mr-1 w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category 1 - Smart Health -->
+    <section id="health" class="py-24 bg-white relative border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-sm text-brand font-bold tracking-widest uppercase">Wellness & Environment</h2>
+                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-dark-darker sm:text-4xl">
+                    Smart Health Solutions
+                </p>
+                <div class="w-16 h-1 bg-brand mx-auto mt-6 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center flex-col-reverse lg:flex-row-reverse">
+                
+                <!-- Content side -->
+                <div class="space-y-12 order-2 lg:order-1">
+                    <!-- Feature 1 -->
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-brand/10 text-brand shadow-sm border border-brand/20">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h3 class="text-2xl font-bold text-dark-darker">Cordless Vacuum Cleaners</h3>
+                            <p class="mt-3 text-lg text-gray-500 leading-relaxed">
+                                Next-generation cordless vacuum cleaners with powerful suction and lightweight design. Specially engineered to tackle pet hair and fine dust, keeping your living space in its purest state.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Feature 2 -->
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-brand/10 text-brand shadow-sm border border-brand/20">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
+                            </div>
+                        </div>
+                        <div class="ml-6">
+                            <h3 class="text-2xl font-bold text-dark-darker">HEPA Air Purifiers</h3>
+                            <p class="mt-3 text-lg text-gray-500 leading-relaxed">
+                                Breathe clean air even during your most intense workout sessions. Smart filtration systems remove 99.97% of allergens and odors from enclosed spaces.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4">
+                        <a href="{{ url('/health/smart-home-wellness-tools') }}" class="inline-flex items-center px-8 py-4 border border-transparent text-base font-bold rounded-xl shadow-lg text-white bg-brand hover:bg-brand-dark transition-all duration-300 transform hover:-translate-y-1">
+                            Explore Wellness Tools
+                            <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Image side -->
+                <div class="relative group rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2">
+                    <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Top-rated cordless vacuums for pet hair and HEPA air purifiers" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
+                    <!-- Subtile overlay -->
+                    <div class="absolute inset-0 bg-brand/5 mix-blend-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category 2 - Home Training -->
+    <section id="training" class="py-24 bg-gray-50 relative">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
                 <h2 class="text-sm text-brand font-bold tracking-widest uppercase">Performance</h2>
@@ -203,69 +325,6 @@
         </div>
     </section>
 
-    <!-- Category 2 - Smart Health -->
-    <section id="health" class="py-24 bg-gray-50 relative border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16">
-                <h2 class="text-sm text-brand font-bold tracking-widest uppercase">Wellness & Environment</h2>
-                <p class="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-dark-darker sm:text-4xl">
-                    Smart Health Solutions
-                </p>
-                <div class="w-16 h-1 bg-brand mx-auto mt-6 rounded-full"></div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center flex-col-reverse lg:flex-row-reverse">
-                
-                <!-- Content side -->
-                <div class="space-y-12 order-2 lg:order-1">
-                    <!-- Feature 1 -->
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-brand/10 text-brand shadow-sm border border-brand/20">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10l-2 1m0 0l-2-1m2 1v2.5M20 7l-2 1m2-1l-2-1m2 1v2.5M14 4l-2-1-2 1M4 7l2-1M4 7l2 1M4 7v2.5M12 21l-2-1m2 1l2-1m-2 1v-2.5M6 18l-2-1v-2.5M18 18l2-1v-2.5"></path></svg>
-                            </div>
-                        </div>
-                        <div class="ml-6">
-                            <h3 class="text-2xl font-bold text-dark-darker">Cordless Vacuum Cleaners</h3>
-                            <p class="mt-3 text-lg text-gray-500 leading-relaxed">
-                                Next-generation cordless vacuum cleaners with powerful suction and lightweight design. Specially engineered to tackle pet hair and fine dust, keeping your living space in its purest state.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Feature 2 -->
-                    <div class="flex">
-                        <div class="flex-shrink-0">
-                            <div class="flex items-center justify-center h-14 w-14 rounded-2xl bg-brand/10 text-brand shadow-sm border border-brand/20">
-                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"></path></svg>
-                            </div>
-                        </div>
-                        <div class="ml-6">
-                            <h3 class="text-2xl font-bold text-dark-darker">HEPA Air Purifiers</h3>
-                            <p class="mt-3 text-lg text-gray-500 leading-relaxed">
-                                Breathe clean air even during your most intense workout sessions. Smart filtration systems remove 99.97% of allergens and odors from enclosed spaces.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="pt-4">
-                        <a href="{{ url('/health/smart-home-wellness-tools') }}" class="inline-flex items-center px-8 py-4 border border-transparent text-base font-bold rounded-xl shadow-lg text-white bg-brand hover:bg-brand-dark transition-all duration-300 transform hover:-translate-y-1">
-                            Explore Wellness Tools
-                            <svg class="ml-2 -mr-1 w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Image side -->
-                <div class="relative group rounded-3xl overflow-hidden shadow-2xl order-1 lg:order-2">
-                    <img src="https://images.unsplash.com/photo-1595428774223-ef52624120d2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Top-rated cordless vacuums for pet hair and HEPA air purifiers" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105" />
-                    <!-- Subtile overlay -->
-                    <div class="absolute inset-0 bg-brand/5 mix-blend-overlay"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- About Us Section -->
     <section id="about" class="py-24 bg-dark-darker text-white relative overflow-hidden">
         <!-- Abstract shape backgrounds -->
@@ -304,7 +363,7 @@
                         <div class="w-10 h-10 rounded-xl bg-brand flex items-center justify-center text-white font-bold text-xl">
                             FW
                         </div>
-                        <span class="font-bold text-2xl tracking-tight text-white">FitWell<span class="text-brand">2026</span></span>
+                        <span class="font-bold text-2xl tracking-tight text-white">FitWell</span>
                     </div>
                     <p class="text-gray-400 text-base leading-relaxed mb-6 pr-4">
                         Reinvent your living space, elevate your health. A comprehensive solution for home workouts and purifying your living environment.
