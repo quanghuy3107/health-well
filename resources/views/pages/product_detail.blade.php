@@ -8,7 +8,8 @@
     <meta name="description" content="{{ $product['name'] }} — {{ $product['description'] }} Check the best price, real user reviews, and detailed specifications. Save {{ $product['discount_percentage'] }}% today.">
 
     <!-- Fonts -->
-    <link rel="icon" type="image/png" href="{{ asset('images/logo-optimized.png') }}?v=2">
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}?v=3">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
