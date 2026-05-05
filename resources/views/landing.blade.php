@@ -7,7 +7,7 @@
     <meta name="description" content="Discover the best home gym equipment 2026, clean whey protein for sensitive stomach, and top-rated cordless vacuums for pet hair. Your complete home fitness and wellness guide.">
     
     <!-- Fonts -->
-    <link rel="icon" type="image/png" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-optimized.png') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -51,7 +51,7 @@
       "@@type": "Organization",
       "name": "FitWell 2026",
       "url": "https://fitwell2026.com",
-      "logo": "{{ asset('images/logo.png') }}",
+      "logo": "{{ asset('images/logo-optimized.png') }}",
       "description": "Your trusted source for the best home gym equipment 2026, clean whey protein for sensitive stomach, and top-rated cordless vacuums for pet hair."
     }
     </script>
@@ -85,12 +85,13 @@
                 <!-- Logo -->
                 <a href="#home" class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer group" aria-label="HomeWellness Home">
                     <!-- Icon crop wrapper: only shows the circular emblem portion of the logo image -->
-                    <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300">
+                    <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300 bg-white">
                         <img
-                            src="{{ asset('images/logo.png') }}"
+                            src="{{ asset('images/logo-optimized.png') }}"
                             alt="HomeWellness logo"
-                            class="absolute w-[320%] max-w-none"
-                            style="top: -18%; left: -110%; transform: none;"
+                            class="w-full h-full object-contain"
+                            fetchpriority="high"
+                            loading="eager"
                         />
                     </div>
                     <!-- Brand name text -->
@@ -383,12 +384,12 @@
                 <div class="md:col-span-5">
                     <div class="flex items-center gap-3 mb-6">
                         <!-- Footer logo: same crop technique as navbar -->
-                        <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30">
+                        <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30 bg-white">
                             <img
-                                src="{{ asset('images/logo.png') }}"
+                                src="{{ asset('images/logo-optimized.png') }}"
                                 alt="HomeWellness logo"
-                                class="absolute w-[320%] max-w-none"
-                                style="top: -18%; left: -110%;"
+                                class="w-full h-full object-contain"
+                                loading="lazy"
                             />
                         </div>
                         <div class="leading-none">
