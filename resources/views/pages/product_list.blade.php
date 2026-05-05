@@ -13,7 +13,7 @@
     <meta name="description" content="{{ $isTraining ? 'Shop the best home gym equipment and training gear in 2026. Top-rated adjustable dumbbells, clean whey protein, yoga mats and more.' : 'Discover smart home wellness tools and purifiers in 2026. Top-rated cordless vacuums for pet hair, HEPA air purifiers and more.' }}">
     
     <!-- Fonts -->
-    <link rel="icon" type="image/png" href="{{ asset('images/logo-optimized.png') }}">
+    <link rel="icon" type="image/png" href="{{ asset('images/logo-optimized.png') }}?v=2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
