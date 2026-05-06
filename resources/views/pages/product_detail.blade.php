@@ -345,7 +345,7 @@
                 </div>
             </div>
             <div class="pt-6 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-gray-500 text-sm">&copy; {{ date('Y') }} FitWell - Home Fitness & Wellness. All rights reserved.</p>
+                <p class="text-gray-500 text-sm">&copy; {{ date('Y') }} HomeWellness - Home Fitness & Wellness. All rights reserved.</p>
                 <p class="text-[11px] text-gray-700 text-center md:text-right max-w-2xl leading-relaxed">
                     Discovering the <strong>best home gym equipment 2026</strong> has never been easier. We provide highly curated <strong>clean whey protein for sensitive stomach</strong> issues, and review the <strong>top-rated cordless vacuums for pet hair</strong>.
                 </p>

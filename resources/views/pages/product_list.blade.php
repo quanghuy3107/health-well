@@ -329,7 +329,7 @@
             
             <div class="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
                 <p class="text-gray-500 text-sm">
-                    &copy; {{ date('Y') }} FitWell - Home Fitness & Wellness. All rights reserved.
+                    &copy; {{ date('Y') }} HomeWellness - Home Fitness & Wellness. All rights reserved.
                 </p>
                 <!-- SEO Hidden Paragraph for crawlers, blends well -->
                 <p class="text-[11px] text-gray-700 text-center md:text-right max-w-2xl leading-relaxed">

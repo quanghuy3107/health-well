@@ -103,7 +103,7 @@
                 </h1>
                 <div class="w-16 h-1 bg-brand mx-auto mb-8 rounded-full"></div>
                 <p class="text-lg text-gray-600 leading-relaxed font-light">
-                    Chúng tôi ưu tiên sự riêng tư của bạn. Hãy gửi tin nhắn qua form này, chuyên gia sức khỏe của chúng tôi sẽ phản hồi bạn trong vòng 24h.
+                    We prioritize your privacy. Send us a message through this form, and our health and wellness experts will respond within 24 hours.
                 </p>
             </div>
 
@@ -131,11 +131,12 @@
                             <label for="subject" class="block text-sm font-bold text-dark-darker mb-2">Subject</label>
                             <select id="subject" name="subject" required 
                                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition-all bg-white appearance-none">
-                                <option value="" disabled selected>Về sức khỏe hay sản phẩm?</option>
-                                <option value="health">Tư vấn sức khỏe</option>
-                                <option value="product">Thông tin sản phẩm</option>
-                                <option value="order">Hỗ trợ đơn hàng</option>
-                                <option value="other">Vấn đề khác</option>
+                                <option value="" disabled selected>How can we help you?</option>
+                                <option value="wellness">Personal Wellness & Health Consultation</option>
+                                <option value="product">Home Gym Equipment & Product Inquiry</option>
+                                <option value="order">Order Support & Shipping Assistance</option>
+                                <option value="partnership">Business Partnership & Collaboration</option>
+                                <option value="other">General Inquiry</option>
                             </select>
                         </div>
                         <div>
@@ -219,7 +220,7 @@
             
             <div class="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
                 <p class="text-gray-500 text-sm">
-                    &copy; 2026 FitWell - Home Fitness & Wellness. All rights reserved.
+                    &copy; 2026 HomeWellness - Home Fitness & Wellness. All rights reserved.
                 </p>
                 <p class="text-[11px] text-gray-700 text-center md:text-right max-w-2xl leading-relaxed">
                     Discovering the <strong>best home gym equipment 2026</strong> has never been easier. We provide highly curated <strong>clean whey protein for sensitive stomach</strong> issues, and review the <strong>top-rated cordless vacuums for pet hair</strong>.
