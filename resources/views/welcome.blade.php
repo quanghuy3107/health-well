@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name='impact-site-verification' value='d5902479-c40f-42a1-8462-1535224de2c5'>
+
     <title>Home Fitness & Wellness 2026</title>
-    
     <!-- Fonts -->
     <link rel="icon" type="image/jpeg" href="{{ asset('favicon.jpg') }}?v=3">
     <link rel="apple-touch-icon" href="{{ asset('favicon.jpg') }}?v=3">
