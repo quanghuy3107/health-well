@@ -28,3 +28,4 @@ Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])
 
 // Contact Route
 Route::get('/contact', [PageController::class, 'contact'])->name('contact');
+Route::post('/contact', [PageController::class, 'submitContact'])->name('contact.submit');

@@ -109,41 +109,65 @@
 
             <!-- Contact Form Section -->
             <div class="max-w-2xl mx-auto">
+                @if(session('success'))
+                <div class="mb-8 p-4 bg-green-100 border border-green-200 text-green-700 rounded-xl shadow-sm flex items-center gap-3 animate-pulse">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="font-bold">{{ session('success') }}</span>
+                </div>
+                @endif
+
+                @if(session('error'))
+                <div class="mb-8 p-4 bg-red-100 border border-red-200 text-red-700 rounded-xl shadow-sm flex items-center gap-3">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="font-bold">{{ session('error') }}</span>
+                </div>
+                @endif
+
+                @if ($errors->any())
+                <div class="mb-8 p-4 bg-red-50 border border-red-100 text-red-600 rounded-xl shadow-sm">
+                    <ul class="list-disc list-inside text-sm font-medium">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
                 <div class="bg-white rounded-3xl shadow-xl border border-brand/10 overflow-hidden">
                     <div class="bg-brand p-1 text-center"></div>
-                    <form action="#" method="POST" class="p-8 md:p-12 space-y-6">
+                    <form action="{{ route('contact.submit') }}" method="POST" class="p-8 md:p-12 space-y-6">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label for="name" class="block text-sm font-bold text-dark-darker mb-2">Name</label>
                                 <input type="text" id="name" name="name" required 
                                     class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition-all"
-                                    placeholder="Your full name">
+                                    placeholder="Your full name" value="{{ old('name') }}">
                             </div>
                             <div>
                                 <label for="email" class="block text-sm font-bold text-dark-darker mb-2">Email</label>
                                 <input type="email" id="email" name="email" required 
                                     class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition-all"
-                                    placeholder="Your email address">
+                                    placeholder="Your email address" value="{{ old('email') }}">
                             </div>
                         </div>
                         <div>
                             <label for="subject" class="block text-sm font-bold text-dark-darker mb-2">Subject</label>
                             <select id="subject" name="subject" required 
                                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition-all bg-white appearance-none">
-                                <option value="" disabled selected>How can we help you?</option>
-                                <option value="wellness">Personal Wellness & Health Consultation</option>
-                                <option value="product">Home Gym Equipment & Product Inquiry</option>
-                                <option value="order">Order Support & Shipping Assistance</option>
-                                <option value="partnership">Business Partnership & Collaboration</option>
-                                <option value="other">General Inquiry</option>
+                                <option value="" disabled {{ old('subject') ? '' : 'selected' }}>How can we help you?</option>
+                                <option value="wellness" {{ old('subject') == 'wellness' ? 'selected' : '' }}>Personal Wellness & Health Consultation</option>
+                                <option value="product" {{ old('subject') == 'product' ? 'selected' : '' }}>Home Gym Equipment & Product Inquiry</option>
+                                <option value="order" {{ old('subject') == 'order' ? 'selected' : '' }}>Order Support & Shipping Assistance</option>
+                                <option value="partnership" {{ old('subject') == 'partnership' ? 'selected' : '' }}>Business Partnership & Collaboration</option>
+                                <option value="other" {{ old('subject') == 'other' ? 'selected' : '' }}>General Inquiry</option>
                             </select>
                         </div>
                         <div>
                             <label for="message" class="block text-sm font-bold text-dark-darker mb-2">Message</label>
                             <textarea id="message" name="message" rows="5" required 
                                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand/20 focus:border-brand outline-none transition-all resize-none"
-                                placeholder="How can we help you?"></textarea>
+                                placeholder="How can we help you?">{{ old('message') }}</textarea>
                         </div>
                         <div>
                             <button type="submit" 
