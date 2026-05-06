@@ -5,4 +5,4 @@ Disallow: /login/
 Disallow: /register/
 
 # Giúp Google tìm thấy danh sách bài viết/sản phẩm nhanh hơn
-Sitemap: [https://homewellness.com/sitemap.xml](https://homewellness.com/sitemap.xml)
+Sitemap: https://homewellnessforyou.com/sitemap.xml
