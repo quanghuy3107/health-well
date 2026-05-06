@@ -9,12 +9,12 @@
         $pageTitle = $isTraining ? 'Best Home Gym Equipment & Gear 2026' : 'Smart Home Wellness Tools & Purifiers';
     @endphp
     
-    <title>{{ $pageTitle }} - FitWell 2026</title>
+    <title>{{ $pageTitle }} - HomeWellness - Expert Health Support</title>
     <meta name="description" content="{{ $isTraining ? 'Shop the best home gym equipment and training gear in 2026. Top-rated adjustable dumbbells, clean whey protein, yoga mats and more.' : 'Discover smart home wellness tools and purifiers in 2026. Top-rated cordless vacuums for pet hair, HEPA air purifiers and more.' }}">
     
     <!-- Fonts -->
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}?v=3">
-    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}?v=3">
+    <link rel="icon" type="image/jpeg" href="{{ asset('favicon.jpg') }}?v=3">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.jpg') }}?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -53,7 +53,7 @@
                 <!-- Logo -->
                 <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer group" aria-label="HomeWellness Home">
                     <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300 bg-white">
-                        <img src="{{ asset('images/logo-optimized.png') }}" alt="HomeWellness logo" class="w-full h-full object-contain" fetchpriority="high" loading="eager" />
+                        <img src="{{ asset('images/logo-optimized.jpg') }}" alt="HomeWellness logo" class="w-full h-full object-contain" fetchpriority="high" loading="eager" />
                     </div>
                     <div class="leading-none">
                         <span class="block text-base md:text-lg font-extrabold tracking-tight text-dark-darker group-hover:text-brand transition-colors duration-200">HomeWellness</span>
@@ -68,6 +68,7 @@
                     <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
                     <a href="{{ url('/#about') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">About Us</a>
+                    <a href="{{ route('contact') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Contact Us</a>
                 </nav>
 
                 <!-- Mobile menu button -->
@@ -87,6 +88,7 @@
                     <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Training</a>
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Health</a>
                     <a href="{{ url('/#about') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">About Us</a>
+                    <a href="{{ route('contact') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Contact Us</a>
                 </nav>
             </div>
         </div>
@@ -290,7 +292,7 @@
                 <div class="md:col-span-5">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30 bg-white">
-                            <img src="{{ asset('images/logo-optimized.png') }}" alt="HomeWellness logo" class="w-full h-full object-contain" loading="lazy" />
+                            <img src="{{ asset('images/logo-optimized.jpg') }}" alt="HomeWellness logo" class="w-full h-full object-contain" loading="lazy" />
                         </div>
                         <div class="leading-none">
                             <span class="block text-lg font-extrabold tracking-tight text-white">HomeWellness</span>
@@ -310,6 +312,7 @@
                         <li><a href="{{ url('/#training') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Home Training Gear</a></li>
                         <li><a href="{{ url('/#health') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Smart Health Tools</a></li>
                         <li><a href="{{ url('/#about') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> About Us</a></li>
+                        <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Contact Us</a></li>
                     </ul>
                 </div>
 

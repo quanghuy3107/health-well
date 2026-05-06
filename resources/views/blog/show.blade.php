@@ -39,8 +39,8 @@
 
 
     <!-- Fonts -->
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}?v=3">
-    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}?v=3">
+    <link rel="icon" type="image/jpeg" href="{{ asset('favicon.jpg') }}?v=3">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.jpg') }}?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -133,7 +133,7 @@
                 <!-- Logo -->
                 <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer group" aria-label="HomeWellness Home">
                     <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300 bg-white">
-                        <img src="{{ asset('images/logo-optimized.png') }}" alt="HomeWellness logo" class="w-full h-full object-contain" fetchpriority="high" loading="eager" />
+                        <img src="{{ asset('images/logo-optimized.jpg') }}" alt="HomeWellness logo" class="w-full h-full object-contain" fetchpriority="high" loading="eager" />
                     </div>
                     <div class="leading-none">
                         <span class="block text-base md:text-lg font-extrabold tracking-tight text-dark-darker group-hover:text-brand transition-colors duration-200">HomeWellness</span>
@@ -289,7 +289,7 @@
                 <div class="md:col-span-5">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30 bg-white">
-                            <img src="{{ asset('images/logo-optimized.png') }}" alt="HomeWellness logo" class="w-full h-full object-contain" loading="lazy" />
+                            <img src="{{ asset('images/logo-optimized.jpg') }}" alt="HomeWellness logo" class="w-full h-full object-contain" loading="lazy" />
                         </div>
                         <div class="leading-none">
                             <span class="block text-lg font-extrabold tracking-tight text-white">HomeWellness</span>

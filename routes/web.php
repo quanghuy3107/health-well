@@ -25,3 +25,6 @@ Route::get('/go/{slug}', [AffiliateController::class, 'redirect'])->name('affili
 // Blog Routes
 Route::get('/blog', [App\Http\Controllers\BlogController::class, 'index'])->name('blog.index');
 Route::get('/blog/{slug}', [App\Http\Controllers\BlogController::class, 'show'])->name('blog.show');
+
+// Contact Route
+Route::get('/contact', [PageController::class, 'contact'])->name('contact');

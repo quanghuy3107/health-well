@@ -51,4 +51,9 @@ class PageController extends Controller
 
         return view('pages.product_detail', compact('product'));
     }
+
+    public function contact()
+    {
+        return view('pages.contact');
+    }
 }

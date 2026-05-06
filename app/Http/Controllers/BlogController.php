@@ -113,7 +113,7 @@ class BlogController extends Controller
                     'publisher'        => [
                         '@type' => 'Organization',
                         'name'  => 'FitWell',
-                        'logo'  => ['@type' => 'ImageObject', 'url' => url('/images/fitwell-logo.png')],
+                        'logo'  => ['@type' => 'ImageObject', 'url' => url('/images/fitwell-logo.jpg')],
                     ],
                     'mainEntityOfPage' => ['@type' => 'WebPage', '@id' => url('/blog/best-air-purifiers-2026')],
                     'keywords'         => 'best air purifier 2026, HEPA H13 filter air purifier, air quality sensor purifier, smoke and odor removal, air purifier for large rooms',

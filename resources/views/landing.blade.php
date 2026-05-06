@@ -3,12 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Home Fitness & Wellness 2026 | Best Home Gym Equipment, Whey Protein & Cordless Vacuums</title>
+    <title>Home Fitness & Wellness 2026 | HomeWellness - Expert Health Support</title>
     <meta name="description" content="Discover the best home gym equipment 2026, clean whey protein for sensitive stomach, and top-rated cordless vacuums for pet hair. Your complete home fitness and wellness guide.">
     
     <!-- Fonts -->
-    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}?v=3">
-    <link rel="apple-touch-icon" href="{{ asset('favicon.png') }}?v=3">
+    <link rel="icon" type="image/jpeg" href="{{ asset('favicon.jpg') }}?v=3">
+    <link rel="apple-touch-icon" href="{{ asset('favicon.jpg') }}?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -50,9 +50,9 @@
     {
       "@@context": "https://schema.org",
       "@@type": "Organization",
-      "name": "FitWell 2026",
-      "url": "https://fitwell2026.com",
-      "logo": "{{ asset('images/logo-optimized.png') }}",
+      "name": "Home Wellness For You",
+      "url": "https://homewellnessforyou.com",
+      "logo": "{{ asset('images/logo-optimized.jpg') }}",
       "description": "Your trusted source for the best home gym equipment 2026, clean whey protein for sensitive stomach, and top-rated cordless vacuums for pet hair."
     }
     </script>
@@ -65,7 +65,7 @@
       "description": "The ultimate selection of the best home gym equipment 2026, clean whey protein, and top-rated cordless vacuums.",
       "brand": {
         "@@type": "Brand",
-        "name": "FitWell 2026"
+        "name": "Home Wellness For You"
       },
       "aggregateRating": {
         "@@type": "AggregateRating",
@@ -88,7 +88,7 @@
                     <!-- Icon crop wrapper: only shows the circular emblem portion of the logo image -->
                     <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300 bg-white">
                         <img
-                            src="{{ asset('images/logo-optimized.png') }}"
+                            src="{{ asset('images/logo-optimized.jpg') }}"
                             alt="HomeWellness logo"
                             class="w-full h-full object-contain"
                             fetchpriority="high"
@@ -109,6 +109,7 @@
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
                     <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
                     <a href="#about" class="text-dark font-medium hover:text-brand transition-colors duration-200">About Us</a>
+                    <a href="{{ route('contact') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Contact Us</a>
                 </nav>
 
                 <!-- Mobile menu button -->
@@ -129,6 +130,7 @@
                     <a href="{{ url('/health/smart-home-wellness-tools') }}" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Health</a>
                     <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Training</a>
                     <a href="#about" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">About Us</a>
+                    <a href="{{ route('contact') }}" class="mobile-nav-link px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Contact Us</a>
                 </nav>
             </div>
         </div>
@@ -387,7 +389,7 @@
                         <!-- Footer logo: same crop technique as navbar -->
                         <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30 bg-white">
                             <img
-                                src="{{ asset('images/logo-optimized.png') }}"
+                                src="{{ asset('images/logo-optimized.jpg') }}"
                                 alt="HomeWellness logo"
                                 class="w-full h-full object-contain"
                                 loading="lazy"
@@ -411,6 +413,7 @@
                         <li><a href="#training" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Home Training Gear</a></li>
                         <li><a href="#health" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Smart Health Tools</a></li>
                         <li><a href="#about" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> About Us</a></li>
+                        <li><a href="{{ route('contact') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Contact Us</a></li>
                     </ul>
                 </div>
 
