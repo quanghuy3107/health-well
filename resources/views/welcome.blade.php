@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name='impact-site-verification' value='d5902479-c40f-42a1-8462-1535224de2c5'>
+    <!-- <meta name='impact-site-verification' value='d5902479-c40f-42a1-8462-1535224de2c5'> -->
 
     <title>Home Fitness & Wellness 2026</title>
     <!-- Fonts -->
@@ -12,7 +12,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <meta name='impact-site-verification' value='a210153d-52b3-4f76-9ed2-da246122b330'>
     <!-- Tailwind CSS (via CDN for standalone blade file, you can compile via Vite later) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>

@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Fitness & Wellness 2026 | HomeWellness - Expert Health Support</title>
     <meta name="description" content="Discover the best home gym equipment 2026, clean whey protein for sensitive stomach, and top-rated cordless vacuums for pet hair. Your complete home fitness and wellness guide.">
-    <meta name='impact-site-verification' value='d5902479-c40f-42a1-8462-1535224de2c5'>
+    <!-- <meta name='impact-site-verification' value='d5902479-c40f-42a1-8462-1535224de2c5'> -->
     <!-- Fonts -->
     <link rel="icon" type="image/jpeg" href="{{ asset('favicon.jpg') }}?v=3">
     <link rel="apple-touch-icon" href="{{ asset('favicon.jpg') }}?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
+    <meta name='impact-site-verification' value='a210153d-52b3-4f76-9ed2-da246122b330'>
     <!-- Tailwind CSS (via CDN for standalone blade file, you can compile via Vite later) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
