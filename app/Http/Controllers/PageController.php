@@ -3,26 +3,27 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class PageController extends Controller
 {
-    private function getProductsByCategory($category)
-    {
-        $all = json_decode(file_get_contents(storage_path('app/products.json')), true);
-
-        return collect($all)->where('category', $category)->values()->toArray();
-    }
-
     public function training()
     {
-        $products = $this->getProductsByCategory('training');
+        try {
+            $category = Category::where('slug', 'training')->first();
+            $products = Product::active()->byCategory('training')->get()->toArray();
+        } catch (\Exception $e) {
+            $products = $this->getProductsFromJson('training');
+            $category = null;
+        }
 
         $banner = [
-            'image' => asset('images/peak-performance-fitness.jpg'),
-            'title' => 'Peak Performance at Home',
-            'subtitle' => 'Premium supplements and equipment to crush your fitness goals.',
+            'image' => asset($category?->banner_image ?? 'images/peak-performance-fitness.jpg'),
+            'title' => $category?->banner_title ?? 'Peak Performance at Home',
+            'subtitle' => $category?->banner_subtitle ?? 'Premium supplements and equipment to crush your fitness goals.',
         ];
 
         return view('pages.product_list', compact('products', 'banner'));
@@ -30,12 +31,18 @@ class PageController extends Controller
 
     public function health()
     {
-        $products = $this->getProductsByCategory('health');
+        try {
+            $category = Category::where('slug', 'health')->first();
+            $products = Product::active()->byCategory('health')->get()->toArray();
+        } catch (\Exception $e) {
+            $products = $this->getProductsFromJson('health');
+            $category = null;
+        }
 
         $banner = [
-            'image' => asset('images/healthier-sanctuary-home.jpg'),
-            'title' => 'A Healthier Sanctuary',
-            'subtitle' => 'Smart solutions for a cleaner, safer, and more relaxing home environment.',
+            'image' => asset($category?->banner_image ?? 'images/healthier-sanctuary-home.jpg'),
+            'title' => $category?->banner_title ?? 'A Healthier Sanctuary',
+            'subtitle' => $category?->banner_subtitle ?? 'Smart solutions for a cleaner, safer, and more relaxing home environment.',
         ];
 
         return view('pages.product_list', compact('products', 'banner'));
@@ -43,15 +50,35 @@ class PageController extends Controller
 
     public function showProduct($slug)
     {
-        $products = json_decode(file_get_contents(storage_path('app/products.json')), true);
+        try {
+            $product = Product::active()->where('slug', $slug)->first();
+            if ($product) {
+                $product = $product->toArray();
+            }
+        } catch (\Exception $e) {
+            $product = null;
+        }
 
-        $product = collect($products)->firstWhere('slug', $slug);
+        // Fallback to JSON
+        if (!$product) {
+            $products = json_decode(file_get_contents(storage_path('app/products.json')), true);
+            $product = collect($products)->firstWhere('slug', $slug);
+        }
 
         if (!$product) {
             abort(404);
         }
 
         return view('pages.product_detail', compact('product'));
+    }
+
+    /**
+     * Fallback: read products from JSON file when MongoDB is unavailable.
+     */
+    private function getProductsFromJson(string $category): array
+    {
+        $all = json_decode(file_get_contents(storage_path('app/products.json')), true);
+        return collect($all)->where('category', $category)->values()->toArray();
     }
 
     public function contact()

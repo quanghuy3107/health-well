@@ -9,15 +9,16 @@ RUN apk add --no-cache \
     unzip \
     oniguruma-dev \
     nodejs \
-    npm
+    npm \
+    openssl-dev
 
 # Cài đặt các PHP extensions
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
-# Cài đặt extension Redis qua PECL
+# Cài đặt extension Redis và MongoDB qua PECL
 RUN apk add --no-cache $PHPIZE_DEPS linux-headers \
-    && pecl install redis \
-    && docker-php-ext-enable redis
+    && pecl install redis mongodb \
+    && docker-php-ext-enable redis mongodb
 
 # Cài đặt Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer

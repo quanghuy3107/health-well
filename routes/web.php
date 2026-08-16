@@ -2,15 +2,21 @@
 
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\PageController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    $products = json_decode(file_get_contents(storage_path('app/products.json')), true);
-    
-    $trainingProducts = collect($products)->where('category', 'training')->take(1);
-    $healthProducts = collect($products)->where('category', 'health')->take(3);
-    
-    $trendingProducts = $healthProducts->merge($trainingProducts);
+    try {
+        $trainingProducts = Product::active()->byCategory('training')->take(1)->get();
+        $healthProducts = Product::active()->byCategory('health')->take(3)->get();
+        $trendingProducts = $healthProducts->merge($trainingProducts);
+    } catch (\Exception $e) {
+        // Fallback to JSON if MongoDB is not available
+        $products = json_decode(file_get_contents(storage_path('app/products.json')), true);
+        $trainingProducts = collect($products)->where('category', 'training')->take(1);
+        $healthProducts = collect($products)->where('category', 'health')->take(3);
+        $trendingProducts = $healthProducts->merge($trainingProducts);
+    }
 
     return view('landing', compact('trendingProducts'));
 });

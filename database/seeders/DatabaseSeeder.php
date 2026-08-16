@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,11 +16,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Tạo admin user
+        User::updateOrCreate(
+            ['email' => 'admin@homewellnessforyou.com'],
+            [
+                'name' => 'Admin',
+                'email' => 'admin@homewellnessforyou.com',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+        // Tạo test user
+        User::updateOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+                'password' => Hash::make('password'),
+                'role' => 'user',
+            ]
+        );
+
+        // Seed MongoDB collections
+        $this->call([
+            MongoProductSeeder::class,
+            MongoBlogSeeder::class,
+            MongoSiteSettingSeeder::class,
         ]);
     }
 }
