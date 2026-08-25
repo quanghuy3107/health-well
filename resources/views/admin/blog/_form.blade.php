@@ -251,7 +251,7 @@
             ]
         },
         simpleUpload: {
-            uploadUrl: '{{ route("admin.upload.editor-image") }}',
+            uploadUrl: '/admin/upload/editor-image',
             headers: {
                 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
             }

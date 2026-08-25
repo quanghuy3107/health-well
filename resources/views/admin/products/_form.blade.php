@@ -68,7 +68,7 @@
                 <div class="flex flex-wrap gap-2">
                     <template x-for="(img, index) in images" :key="index">
                         <div class="relative">
-                            <img :src="img.startsWith('/') ? '{{ asset('') }}' + img.substring(1) : img" 
+                            <img :src="img.startsWith('http') ? img : (window.location.origin + img)" 
                                 class="h-16 w-16 object-cover rounded-lg border border-gray-200">
                             <button type="button" @click="removeImage(index)"
                                 class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px] hover:bg-red-600">
@@ -188,7 +188,7 @@ function galleryUpload(initial) {
                 formData.append('folder', 'products');
 
                 try {
-                    const response = await fetch('{{ route("admin.upload.image") }}', {
+                    const response = await fetch('/admin/upload/image', {
                         method: 'POST',
                         headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
                         body: formData,

@@ -7,23 +7,28 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     try {
-        $trainingProducts = Product::active()->byCategory('training')->take(1)->get();
-        $healthProducts = Product::active()->byCategory('health')->take(3)->get();
-        $trendingProducts = $healthProducts->merge($trainingProducts);
+        $categories = \App\Models\Category::active()->orderBy('sort_order')->get();
+        $latestProducts = \App\Models\Product::active()->orderBy('created_at', 'desc')->take(8)->get();
+        $latestPosts = \App\Models\BlogPost::published()->orderBy('created_at', 'desc')->take(3)->get();
     } catch (\Exception $e) {
-        // Fallback to JSON if MongoDB is not available
-        $products = json_decode(file_get_contents(storage_path('app/products.json')), true);
-        $trainingProducts = collect($products)->where('category', 'training')->take(1);
-        $healthProducts = collect($products)->where('category', 'health')->take(3);
-        $trendingProducts = $healthProducts->merge($trainingProducts);
+        $categories = collect();
+        $latestProducts = collect();
+        $latestPosts = collect();
     }
 
-    return view('landing', compact('trendingProducts'));
+    return view('landing', compact('categories', 'latestProducts', 'latestPosts'));
 });
 
-Route::get('/training/best-whey-protein-home-gear', [PageController::class, 'training'])->name('training');
-Route::get('/health/smart-home-wellness-tools', [PageController::class, 'health'])->name('health');
+Route::get('/category/{slug}', [PageController::class, 'category'])->name('category.show');
 Route::get('/product/{slug}', [PageController::class, 'showProduct'])->name('product.detail');
+
+// Legacy routes (redirect to new category URLs)
+Route::get('/training/best-whey-protein-home-gear', function () {
+    return redirect()->route('category.show', 'training', 301);
+});
+Route::get('/health/smart-home-wellness-tools', function () {
+    return redirect()->route('category.show', 'health', 301);
+});
 
 // Route dành cho Link Cloaking
 Route::get('/go/{slug}', [AffiliateController::class, 'redirect'])->name('affiliate.go');

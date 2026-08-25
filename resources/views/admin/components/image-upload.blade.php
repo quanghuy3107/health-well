@@ -16,7 +16,7 @@
     
     <!-- Preview -->
     <div x-show="imageUrl" class="relative inline-block">
-        <img :src="imageUrl.startsWith('/') ? '{{ asset('') }}' + imageUrl.substring(1) : imageUrl" 
+        <img :src="getPreviewUrl()" 
             alt="Preview" class="h-24 w-auto object-contain rounded-lg border border-gray-200 bg-gray-50">
         <button type="button" @click="removeImage()" 
             class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs hover:bg-red-600">
@@ -63,6 +63,15 @@ function imageUpload(fieldName, initialValue, folder) {
         folder: folder,
         uploading: false,
         error: '',
+
+        getPreviewUrl() {
+            if (!this.imageUrl) return '';
+            // If it's already a full URL (http/https), use as-is
+            if (this.imageUrl.startsWith('http')) return this.imageUrl;
+            // Otherwise it's a relative path like /images/products/xxx.jpg
+            // Use current origin to build the full URL
+            return window.location.origin + this.imageUrl;
+        },
         
         async upload(event) {
             const file = event.target.files[0];
@@ -87,7 +96,7 @@ function imageUpload(fieldName, initialValue, folder) {
             formData.append('folder', this.folder);
 
             try {
-                const response = await fetch('{{ route("admin.upload.image") }}', {
+                const response = await fetch('/admin/upload/image', {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,

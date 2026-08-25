@@ -10,42 +10,31 @@ use Illuminate\Support\Facades\Mail;
 
 class PageController extends Controller
 {
-    public function training()
+    /**
+     * Dynamic category page — works for any category slug.
+     */
+    public function category($slug)
     {
         try {
-            $category = Category::where('slug', 'training')->first();
-            $products = Product::active()->byCategory('training')->get()->toArray();
+            $category = Category::where('slug', $slug)->firstOrFail();
+            $products = Product::active()->byCategory($slug)->orderBy('sort_order')->get()->toArray();
         } catch (\Exception $e) {
-            $products = $this->getProductsFromJson('training');
+            // Fallback to JSON
+            $products = $this->getProductsFromJson($slug);
             $category = null;
         }
 
-        $banner = [
-            'image' => asset($category?->banner_image ?? 'images/peak-performance-fitness.jpg'),
-            'title' => $category?->banner_title ?? 'Peak Performance at Home',
-            'subtitle' => $category?->banner_subtitle ?? 'Premium supplements and equipment to crush your fitness goals.',
-        ];
-
-        return view('pages.product_list', compact('products', 'banner'));
-    }
-
-    public function health()
-    {
-        try {
-            $category = Category::where('slug', 'health')->first();
-            $products = Product::active()->byCategory('health')->get()->toArray();
-        } catch (\Exception $e) {
-            $products = $this->getProductsFromJson('health');
-            $category = null;
+        if (!$category && empty($products)) {
+            abort(404);
         }
 
         $banner = [
-            'image' => asset($category?->banner_image ?? 'images/healthier-sanctuary-home.jpg'),
-            'title' => $category?->banner_title ?? 'A Healthier Sanctuary',
-            'subtitle' => $category?->banner_subtitle ?? 'Smart solutions for a cleaner, safer, and more relaxing home environment.',
+            'image' => asset($category?->banner_image ?? 'images/modern-clean-home.jpg'),
+            'title' => $category?->banner_title ?? ucfirst($slug),
+            'subtitle' => $category?->banner_subtitle ?? 'Discover the best products in this category.',
         ];
 
-        return view('pages.product_list', compact('products', 'banner'));
+        return view('pages.product_list', compact('products', 'banner', 'category'));
     }
 
     public function showProduct($slug)
@@ -77,7 +66,9 @@ class PageController extends Controller
      */
     private function getProductsFromJson(string $category): array
     {
-        $all = json_decode(file_get_contents(storage_path('app/products.json')), true);
+        $jsonPath = storage_path('app/products.json');
+        if (!file_exists($jsonPath)) return [];
+        $all = json_decode(file_get_contents($jsonPath), true);
         return collect($all)->where('category', $category)->values()->toArray();
     }
 
