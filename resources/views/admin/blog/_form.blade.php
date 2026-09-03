@@ -124,7 +124,7 @@
 <style>
     .ck-editor__editable {
         min-height: 500px !important;
-        font-family: Inter, sans-serif;
+        font-family: Arial, sans-serif;
         font-size: 16px;
         line-height: 1.7;
     }

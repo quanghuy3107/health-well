@@ -20,6 +20,8 @@ return Application::configure(basePath: dirname(__DIR__))
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        $middleware->trustProxies(at: ["172.24.0.0/16"]);
+
         $middleware->alias([
             'admin' => AdminMiddleware::class,
         ]);

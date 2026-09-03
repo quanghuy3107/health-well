@@ -9,9 +9,6 @@
     <!-- Fonts -->
     <link rel="icon" type="image/jpeg" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
     <link rel="apple-touch-icon" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- <meta name='impact-site-verification' value='a210153d-52b3-4f76-9ed2-da246122b330'> -->
     <meta name='impact-site-verification' value='e5e20be6-5aaa-4ab0-84a9-c424c6404c9a'>
     <!-- Tailwind CSS (via CDN for standalone blade file, you can compile via Vite later) -->
@@ -21,7 +18,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Arial', 'sans-serif'],
                     },
                     colors: {
                         brand: {

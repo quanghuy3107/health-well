@@ -2,22 +2,25 @@
 
 use App\Http\Controllers\AffiliateController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\SearchController;
 use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     try {
         $categories = \App\Models\Category::active()->orderBy('sort_order')->get();
-        $latestProducts = \App\Models\Product::active()->orderBy('created_at', 'desc')->take(8)->get();
-        $latestPosts = \App\Models\BlogPost::published()->orderBy('created_at', 'desc')->take(3)->get();
+        $latestProducts = \App\Models\Product::active()->orderBy('sort_order')->orderBy('created_at', 'desc')->paginate(8, ['*'], 'products_page');
+        $latestPosts = \App\Models\BlogPost::published()->orderBy('created_at', 'desc')->take(6)->get();
     } catch (\Exception $e) {
         $categories = collect();
-        $latestProducts = collect();
+        $latestProducts = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 8);
         $latestPosts = collect();
     }
 
     return view('landing', compact('categories', 'latestProducts', 'latestPosts'));
 });
+Route::get('/search', SearchController::class)->name('search');
+
 
 Route::get('/category/{slug}', [PageController::class, 'category'])->name('category.show');
 Route::get('/product/{slug}', [PageController::class, 'showProduct'])->name('product.detail');

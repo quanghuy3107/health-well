@@ -25,3 +25,5 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Đặt thư mục làm việc
 WORKDIR /var/www/html
+# Match Laravel image validation limit (5 MB).
+RUN printf "upload_max_filesize=5M\npost_max_size=6M\nmax_file_uploads=20\n" > /usr/local/etc/php/conf.d/uploads.ini

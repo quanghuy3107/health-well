@@ -100,6 +100,7 @@ function imageUpload(fieldName, initialValue, folder) {
                     method: 'POST',
                     headers: {
                         'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content,
+                        'Accept': 'application/json',
                     },
                     body: formData,
                 });

@@ -5,19 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     @php
-        $isTraining = request()->is('training/*');
+        $isTraining = ($category?->slug ?? request()->segment(2)) === 'training';
         $pageTitle = $isTraining ? 'Best Home Gym Equipment & Gear 2026' : 'Smart Home Wellness Tools & Purifiers';
     @endphp
     
-    <title>{{ $pageTitle }} - HomeWellness - Expert Health Support</title>
+    <title>{{ $pageTitle }} - {{ config('app.name', 'Daily Shark Finds') }}</title>
     <meta name="description" content="{{ $isTraining ? 'Shop the best home gym equipment and training gear in 2026. Top-rated adjustable dumbbells, clean whey protein, yoga mats and more.' : 'Discover smart home wellness tools and purifiers in 2026. Top-rated cordless vacuums for pet hair, HEPA air purifiers and more.' }}">
     
     <!-- Fonts -->
     <link rel="icon" type="image/jpeg" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
     <link rel="apple-touch-icon" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -26,7 +23,7 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Arial', 'sans-serif'],
                     },
                     colors: {
                         brand: {
@@ -46,97 +43,31 @@
 </head>
 <body class="font-sans antialiased bg-gray-50 text-dark selection:bg-brand selection:text-white">
 
-    <!-- Header / Menu -->
-    <header class="fixed w-full top-0 z-50 bg-white transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 md:h-20">
-                <!-- Logo -->
-                <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer group" aria-label="HomeWellness Home">
-                    <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300 bg-white">
-                        <img src="{{ asset(\App\Models\SiteSetting::getValue('logo', 'images/logo-optimized.jpg')) }}" alt="HomeWellness logo" class="w-full h-full object-contain" fetchpriority="high" loading="eager" />
-                    </div>
-                    <div class="leading-none">
-                        <span class="block text-base md:text-lg font-extrabold tracking-tight text-dark-darker group-hover:text-brand transition-colors duration-200">HomeWellness</span>
-                        <span class="block text-[10px] md:text-xs text-brand font-semibold tracking-widest uppercase">Smart Home Vitality</span>
-                    </div>
-                </a>
-                
-                <!-- Desktop Menu -->
-                <nav class="hidden md:flex space-x-8 lg:space-x-10">
-                    <a href="{{ url('/') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Home</a>
-                    <a href="{{ route('blog.index') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Blog</a>
-                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
-                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
-                    <a href="{{ url('/#about') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">About Us</a>
-                    <a href="{{ route('contact') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Contact Us</a>
-                </nav>
+    <x-site.header :categories="$categories" />
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-dark hover:text-brand focus:outline-none p-2" aria-label="Toggle menu">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <!-- Mobile Menu Dropdown -->
-            <div id="mobile-menu" class="md:hidden hidden pb-4">
-                <nav class="flex flex-col gap-1">
-                    <a href="{{ url('/') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Home</a>
-                    <a href="{{ route('blog.index') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Blog</a>
-                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Training</a>
-                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Health</a>
-                    <a href="{{ url('/#about') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">About Us</a>
-                    <a href="{{ route('contact') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Contact Us</a>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <!-- Hero Banner -->
-    <section class="relative w-full h-[300px] md:h-[400px] mt-20 overflow-hidden">
-        <!-- Background Image -->
-        <img src="{{ $banner['image'] }}" alt="{{ $banner['title'] }}" class="absolute inset-0 w-full h-full object-cover object-center">
-        <!-- Dark Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-r from-dark-darker/90 via-dark-darker/70 to-dark-darker/50"></div>
-        <!-- Content -->
-        <div class="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center">
-            <!-- Breadcrumbs (SEO) -->
-            <nav aria-label="Breadcrumb" class="mb-4">
-                <ol class="flex items-center gap-2 text-sm" itemscope itemtype="https://schema.org/BreadcrumbList">
-                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                        <a href="{{ url('/') }}" itemprop="item" class="text-gray-300 hover:text-white transition-colors">
-                            <span itemprop="name">Home</span>
+    <!-- Main Content -->
+    <main class="py-10 md:py-14">
+        <div class="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
+
+            <nav aria-label="Breadcrumb" class="mb-8">
+                <ol class="inline-flex max-w-full items-center gap-1 rounded-full border border-emerald-100 bg-white p-1.5 pr-2 shadow-[0_6px_20px_rgba(15,118,110,0.08)]">
+                    <li>
+                        <a href="{{ url('/') }}" class="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-gray-600 transition hover:bg-emerald-50 hover:text-[#047857]">
+                            <svg class="h-4 w-4 text-[#10b981]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 11 9-8 9 8M5 10v10h14V10M9 20v-6h6v6"/></svg>
+                            <span>Home</span>
                         </a>
-                        <meta itemprop="position" content="1" />
                     </li>
-                    <li class="text-gray-500">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    <li aria-hidden="true" class="text-emerald-300">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
                     </li>
-                    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-                        <span itemprop="name" class="text-white font-medium">{{ $isTraining ? 'Training' : 'Health' }}</span>
-                        <meta itemprop="position" content="2" />
+                    <li class="min-w-0">
+                        <span class="block max-w-[220px] truncate rounded-full bg-emerald-50 px-4 py-2 text-sm font-bold text-[#047857] sm:max-w-none">{{ $category?->name ?? ucfirst(request()->segment(2)) }}</span>
                     </li>
                 </ol>
             </nav>
-            <!-- Title -->
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight drop-shadow-lg">
-                {{ $banner['title'] }}
-            </h1>
-            <!-- Subtitle -->
-            <p class="mt-4 max-w-2xl text-lg md:text-xl text-gray-300 font-light leading-relaxed">
-                {{ $banner['subtitle'] }}
-            </p>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <main class="py-16 md:py-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
             <!-- Product List (Row Layout) -->
-            <div class="flex flex-col gap-8">
+            <div id="category-products" class="flex scroll-mt-6 flex-col gap-8">
                 @foreach($products as $product)
                     <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-gray-100 flex flex-col md:flex-row group relative">
                         
@@ -266,6 +197,30 @@
                 @endforeach
             </div>
 
+            @if($products->hasPages())
+                <nav class="mt-12 flex flex-wrap items-center justify-center gap-2" aria-label="Category product pagination">
+                    @if($products->onFirstPage())
+                        <span class="cursor-not-allowed rounded-xl border border-gray-200 bg-gray-100 px-4 py-2.5 text-sm font-semibold text-gray-400">← Previous</span>
+                    @else
+                        <a href="{{ $products->previousPageUrl() }}#category-products" class="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-emerald-300 hover:text-[#047857]">← Previous</a>
+                    @endif
+
+                    @foreach($products->getUrlRange(1, $products->lastPage()) as $page => $url)
+                        @if($page === $products->currentPage())
+                            <span aria-current="page" class="flex h-11 min-w-11 items-center justify-center rounded-xl bg-[#10b981] px-3 text-sm font-bold text-white shadow-sm">{{ $page }}</span>
+                        @else
+                            <a href="{{ $url }}#category-products" class="flex h-11 min-w-11 items-center justify-center rounded-xl border border-gray-200 bg-white px-3 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-emerald-300 hover:text-[#047857]">{{ $page }}</a>
+                        @endif
+                    @endforeach
+
+                    @if($products->hasMorePages())
+                        <a href="{{ $products->nextPageUrl() }}#category-products" class="rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-sm transition hover:border-emerald-300 hover:text-[#047857]">Next →</a>
+                    @else
+                        <span class="cursor-not-allowed rounded-xl border border-gray-200 bg-gray-100 px-4 py-2.5 text-sm font-semibold text-gray-400">Next →</span>
+                    @endif
+                </nav>
+            @endif
+
             <!-- Trust & Curation Notice -->
             <div class="mt-16 max-w-3xl mx-auto text-center">
                 <div class="bg-white rounded-2xl border border-gray-100 shadow-sm px-8 py-10">
@@ -286,7 +241,7 @@
 
     <!-- SEO Footer -->
     <footer class="bg-[#0b1120] pt-20 pb-10 border-t border-gray-800 mt-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
             <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
                 <!-- Brand Col -->
                 <div class="md:col-span-5">
@@ -341,24 +296,11 @@
 
     <!-- Interactive Scripts -->
     <script>
-        // Sticky Header with Glassmorphism
-        window.addEventListener('scroll', () => {
-            const header = document.getElementById('navbar');
-            if (window.scrollY > 20) {
-                header.classList.add('shadow-md');
-                header.classList.replace('bg-white', 'bg-white/95');
-                header.classList.add('backdrop-blur-xl');
-            } else {
-                header.classList.remove('shadow-md');
-                header.classList.replace('bg-white/95', 'bg-white');
-                header.classList.remove('backdrop-blur-xl');
-            }
-        });
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+            mobileMenuBtn.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); mobileMenuBtn.setAttribute('aria-expanded', String(!mobileMenu.classList.contains('hidden'))); });
         }
     </script>
 

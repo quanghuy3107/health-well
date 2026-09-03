@@ -3,16 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>{{ $product['name'] }} Review &amp; Best Price 2026 | HomeWellness - Expert Health Support</title>
+    <title>{{ $product['name'] }} Review &amp; Best Price 2026 | {{ config('app.name', 'Daily Shark Finds') }}</title>
     <meta name="description" content="{{ $product['name'] }} — {{ $product['description'] }} Check the best price, real user reviews, and detailed specifications. Save {{ $product['discount_percentage'] }}% today.">
 
     <!-- Fonts -->
     <link rel="icon" type="image/jpeg" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
     <link rel="apple-touch-icon" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -20,7 +16,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    fontFamily: { sans: ['Arial', 'sans-serif'] },
                     colors: {
                         brand: { light: '#a7f3d0', DEFAULT: '#10b981', dark: '#047857' },
                         dark: { DEFAULT: '#1f2937', darker: '#111827' }
@@ -75,59 +71,28 @@
 </head>
 <body class="font-sans antialiased bg-gray-50 text-dark selection:bg-brand selection:text-white">
 
-    <!-- Header -->
-    <header class="fixed w-full top-0 z-50 bg-white shadow-sm transition-all duration-300" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 lg:h-20">
-                <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center gap-2.5 group" aria-label="HomeWellness Home">
-                    <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300 bg-white">
-                        <img src="{{ asset(\App\Models\SiteSetting::getValue('logo', 'images/logo-optimized.jpg')) }}" alt="HomeWellness logo" class="w-full h-full object-contain" fetchpriority="high" loading="eager" />
-                    </div>
-                    <div class="leading-none">
-                        <span class="block text-base md:text-lg font-extrabold tracking-tight text-dark-darker group-hover:text-brand transition-colors duration-200">HomeWellness</span>
-                        <span class="block text-[10px] md:text-xs text-brand font-semibold tracking-widest uppercase">Smart Home Vitality</span>
-                    </div>
-                </a>
-                <nav class="hidden md:flex space-x-8 lg:space-x-10">
-                    <a href="{{ url('/') }}" class="text-dark font-medium  hover:text-brand transition-colors">Home</a>
-                    <a href="{{ route('blog.index') }}" class="text-dark font-medium  hover:text-brand transition-colors">Blog</a>
-                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors">Training</a>
-                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors">Health</a>
-                    <a href="{{ url('/#about') }}" class="text-dark font-medium hover:text-brand transition-colors">About Us</a>
-                    <a href="{{ route('contact') }}" class="text-dark font-medium hover:text-brand transition-colors">Contact Us</a>
-                </nav>
-                <div class="md:hidden">
-                    <button id="mobile-menu-btn" class="text-dark hover:text-brand focus:outline-none p-2" aria-label="Toggle menu">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-                    </button>
-                </div>
-            </div>
-            <!-- Mobile Menu Dropdown -->
-            <div id="mobile-menu" class="md:hidden hidden pb-4">
-                <nav class="flex flex-col gap-1">
-                    <a href="{{ url('/') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Home</a>
-                    <a href="{{ route('blog.index') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Blog</a>
-                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Training</a>
-                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Health</a>
-                    <a href="{{ url('/#about') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">About Us</a>
-                    <a href="{{ route('contact') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Contact Us</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+    <x-site.header :categories="$categories" />
 
     <!-- Main Content -->
-    <main class="pt-24 lg:pt-28 pb-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <main class="pb-16 pt-10 lg:pb-20 lg:pt-14">
+        <div class="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-10">
 
-            <!-- Breadcrumbs -->
-            <nav aria-label="Breadcrumb" class="mb-6">
-                <ol class="flex items-center gap-2 text-sm text-gray-500">
-                    <li><a href="{{ url('/') }}" class="hover:text-brand transition-colors">Home</a></li>
-                    <li><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
-                    <li><a href="{{ $product['category'] === 'training' ? url('/training/best-whey-protein-home-gear') : url('/health/smart-home-wellness-tools') }}" class="hover:text-brand transition-colors">{{ $product['category_label'] }}</a></li>
-                    <li><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg></li>
-                    <li class="text-dark font-medium truncate max-w-[200px] sm:max-w-none">{{ $product['name'] }}</li>
+            <nav aria-label="Breadcrumb" class="mb-8">
+                <ol class="inline-flex max-w-full items-center gap-1 rounded-full border border-emerald-100 bg-white p-1.5 pr-2 shadow-[0_6px_20px_rgba(15,118,110,0.08)]">
+                    <li>
+                        <a href="{{ url('/') }}" class="flex items-center gap-2 rounded-full px-3 py-2 text-sm font-semibold text-slate-600 transition hover:bg-emerald-50 hover:text-[#047857]">
+                            <svg class="h-4 w-4 text-[#10b981]" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m3 11 9-8 9 8M5 10v10h14V10M9 20v-6h6v6"/></svg>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li aria-hidden="true" class="text-emerald-300">
+                        <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+                    </li>
+                    <li class="min-w-0">
+                        <a href="{{ route('category.show', $product['category']) }}" class="block max-w-[220px] truncate rounded-full bg-emerald-50 px-4 py-2 text-sm font-bold text-[#047857] transition hover:bg-emerald-100 sm:max-w-none">
+                            {{ $product['category_label'] ?? ucfirst($product['category']) }}
+                        </a>
+                    </li>
                 </ol>
             </nav>
 

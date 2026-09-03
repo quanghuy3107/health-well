@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Mail\ContactMail;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Exception;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -15,31 +17,47 @@ class PageController extends Controller
      */
     public function category($slug)
     {
+        $categories = collect();
+        $category = null;
+        $perPage = 6;
+
         try {
-            $category = Category::where('slug', $slug)->firstOrFail();
-            $products = Product::active()->byCategory($slug)->orderBy('sort_order')->get()->toArray();
-        } catch (\Exception $e) {
-            // Fallback to JSON
-            $products = $this->getProductsFromJson($slug);
-            $category = null;
+            $categories = Category::active()->orderBy("sort_order")->get();
+            $category = Category::where("slug", $slug)->firstOrFail();
+            $products = Product::active()
+                ->byCategory($slug)
+                ->orderBy("sort_order")
+                ->paginate($perPage);
+        } catch (Exception $e) {
+            $allProducts = $this->getProductsFromJson($slug);
+            $currentPage = LengthAwarePaginator::resolveCurrentPage();
+            $products = new LengthAwarePaginator(
+                array_slice($allProducts, ($currentPage - 1) * $perPage, $perPage),
+                count($allProducts),
+                $perPage,
+                $currentPage,
+                ["path" => request()->url(), "query" => request()->query()]
+            );
         }
 
-        if (!$category && empty($products)) {
+        if (!$category && $products->isEmpty()) {
             abort(404);
         }
 
         $banner = [
-            'image' => asset($category?->banner_image ?? 'images/modern-clean-home.jpg'),
-            'title' => $category?->banner_title ?? ucfirst($slug),
-            'subtitle' => $category?->banner_subtitle ?? 'Discover the best products in this category.',
+            "image" => asset($category?->banner_image ?? "images/modern-clean-home.jpg"),
+            "title" => $category?->banner_title ?? ucfirst($slug),
+            "subtitle" => $category?->banner_subtitle ?? "Discover the best products in this category.",
         ];
 
-        return view('pages.product_list', compact('products', 'banner', 'category'));
+        return view("pages.product_list", compact("products", "banner", "category", "categories"));
     }
 
     public function showProduct($slug)
     {
+        $categories = collect();
         try {
+            $categories = Category::active()->orderBy('sort_order')->get();
             $product = Product::active()->where('slug', $slug)->first();
             if ($product) {
                 $product = $product->toArray();
@@ -58,7 +76,7 @@ class PageController extends Controller
             abort(404);
         }
 
-        return view('pages.product_detail', compact('product'));
+        return view('pages.product_detail', compact('product', 'categories'));
     }
 
     /**

@@ -190,7 +190,7 @@ function galleryUpload(initial) {
                 try {
                     const response = await fetch('/admin/upload/image', {
                         method: 'POST',
-                        headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content },
+                        headers: { 'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content, 'Accept': 'application/json' },
                         body: formData,
                     });
                     const data = await response.json();
