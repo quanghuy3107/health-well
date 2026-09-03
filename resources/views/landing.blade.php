@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ \App\Models\SiteSetting::getValue('meta_title', 'Best Product Reviews & Deals 2026') }}</title>
     <meta name="description" content="{{ \App\Models\SiteSetting::getValue('meta_description', 'Expert product reviews, comparisons, and the best deals.') }}">
+    <meta name='impact-site-verification' value='9f399e36-b335-490e-a65c-54d316265ae7'>
     <link rel="icon" type="image/png" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=4">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
