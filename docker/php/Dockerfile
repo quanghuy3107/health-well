@@ -27,3 +27,10 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 WORKDIR /var/www/html
 # Match Laravel image validation limit (5 MB).
 RUN printf "upload_max_filesize=5M\npost_max_size=6M\nmax_file_uploads=20\n" > /usr/local/etc/php/conf.d/uploads.ini
+
+# Copy entrypoint script
+COPY docker/php/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["entrypoint.sh"]
+CMD ["php-fpm"]

@@ -15,9 +15,10 @@
         @php
             $links = [
                 ['route' => 'admin.dashboard', 'icon' => 'dashboard', 'label' => 'Dashboard'],
-                ['route' => 'admin.products.index', 'icon' => 'products', 'label' => 'Sản phẩm'],
-                ['route' => 'admin.categories.index', 'icon' => 'categories', 'label' => 'Danh mục'],
                 ['route' => 'admin.blog.index', 'icon' => 'blog', 'label' => 'Bài viết'],
+                ['route' => 'admin.blog-categories.index', 'icon' => 'blog-categories', 'label' => 'Danh mục bài viết'],
+                ['route' => 'admin.products.index', 'icon' => 'products', 'label' => 'Sản phẩm'],
+                ['route' => 'admin.categories.index', 'icon' => 'categories', 'label' => 'DM Sản phẩm'],
                 ['route' => 'admin.campaigns.index', 'icon' => 'campaigns', 'label' => 'Campaigns'],
                 ['route' => 'admin.users.index', 'icon' => 'users', 'label' => 'Người dùng'],
                 ['route' => 'admin.settings.index', 'icon' => 'settings', 'label' => 'Cài đặt'],

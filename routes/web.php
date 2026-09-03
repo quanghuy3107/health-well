@@ -8,21 +8,21 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     try {
-        $categories = \App\Models\Category::active()->orderBy('sort_order')->get();
-        $latestProducts = \App\Models\Product::active()->orderBy('sort_order')->orderBy('created_at', 'desc')->paginate(8, ['*'], 'products_page');
-        $latestPosts = \App\Models\BlogPost::published()->orderBy('created_at', 'desc')->take(6)->get();
+        $categories = \App\Models\BlogCategory::active()->orderBy('sort_order')->get();
+        $latestPosts = \App\Models\BlogPost::published()
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
     } catch (\Exception $e) {
         $categories = collect();
-        $latestProducts = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 8);
-        $latestPosts = collect();
+        $latestPosts = new \Illuminate\Pagination\LengthAwarePaginator([], 0, 9);
     }
 
-    return view('landing', compact('categories', 'latestProducts', 'latestPosts'));
+    return view('landing', compact('categories', 'latestPosts'));
 });
 Route::get('/search', SearchController::class)->name('search');
 
 
-Route::get('/category/{slug}', [PageController::class, 'category'])->name('category.show');
+Route::get('/category/{slug}', [PageController::class, 'blogCategory'])->name('category.show');
 Route::get('/product/{slug}', [PageController::class, 'showProduct'])->name('product.detail');
 
 // Legacy routes (redirect to new category URLs)

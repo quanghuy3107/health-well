@@ -25,6 +25,7 @@ class BlogPost extends Model
         'author',
         'read_time',
         'schema',
+        'affiliate_url',
         'is_published',
         'sort_order',
     ];

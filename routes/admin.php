@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\BlogPostController;
+use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\CampaignController;
 use App\Http\Controllers\Admin\SettingController;
@@ -26,6 +27,9 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
 
     // Blog Posts
     Route::resource('blog', BlogPostController::class);
+
+    // Blog Categories
+    Route::resource('blog-categories', BlogCategoryController::class)->except(['show']);
 
     // Users
     Route::resource('users', UserController::class);

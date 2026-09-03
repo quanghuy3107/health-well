@@ -25,8 +25,15 @@
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Danh mục</label>
-            <input type="text" name="category" value="{{ old('category', $post?->category) }}" placeholder="Smart Health"
+            <select name="category"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none">
+                <option value="">— Chọn danh mục —</option>
+                @foreach($blogCategories ?? [] as $cat)
+                    <option value="{{ $cat->name }}" {{ old('category', $post?->category) === $cat->name ? 'selected' : '' }}>
+                        {{ $cat->name }}
+                    </option>
+                @endforeach
+            </select>
         </div>
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Tác giả</label>
@@ -38,6 +45,17 @@
             <input type="text" name="read_time" value="{{ old('read_time', $post?->read_time) }}" placeholder="6 min read"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none">
         </div>
+    </div>
+</div>
+
+<!-- Affiliate Link -->
+<div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <h3 class="text-lg font-semibold text-gray-800 mb-4">Link Affiliate</h3>
+    <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">URL Affiliate</label>
+        <input type="url" name="affiliate_url" value="{{ old('affiliate_url', $post?->affiliate_url) }}" placeholder="https://www.amazon.com/dp/..."
+            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none">
+        <p class="text-xs text-gray-400 mt-1">Link mua hàng sẽ hiển thị nút "Buy Now" ở cuối bài viết. Để trống nếu không có.</p>
     </div>
 </div>
 
@@ -115,6 +133,34 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">Thứ tự</label>
             <input type="number" name="sort_order" value="{{ old('sort_order', $post?->sort_order ?? 0) }}"
                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none">
+        </div>
+    </div>
+
+    <!-- Chọn thời gian tạo -->
+    <div class="mt-4 border-t border-gray-100 pt-4">
+        <div class="flex items-center mb-3">
+            <input type="hidden" name="custom_date" value="0">
+            <input type="checkbox" name="custom_date" value="1" id="custom_date"
+                {{ old('custom_date', $post?->published_date ? '1' : '') ? 'checked' : '' }}
+                class="w-4 h-4 text-brand border-gray-300 rounded focus:ring-brand"
+                onchange="document.getElementById('custom-date-field').classList.toggle('hidden', !this.checked)">
+            <label for="custom_date" class="ml-2 text-sm text-gray-700">Tùy chỉnh thời gian đăng bài</label>
+        </div>
+        <div id="custom-date-field" class="{{ old('custom_date', $post?->published_date ? '1' : '') ? '' : 'hidden' }}">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Ngày đăng</label>
+            @php
+                $dateValue = old('published_date_input');
+                if (!$dateValue && $post?->published_date) {
+                    try {
+                        $dateValue = \Carbon\Carbon::parse($post->published_date)->format('Y-m-d\TH:i');
+                    } catch (\Exception $e) {
+                        $dateValue = '';
+                    }
+                }
+            @endphp
+            <input type="datetime-local" name="published_date_input" value="{{ $dateValue }}"
+                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand focus:border-brand outline-none">
+            <p class="text-xs text-gray-400 mt-1">Để trống sẽ sử dụng thời gian hiện tại khi tạo bài viết</p>
         </div>
     </div>
 </div>

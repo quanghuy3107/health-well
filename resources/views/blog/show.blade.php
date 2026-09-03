@@ -4,10 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- ═══════════════════════════════════════════
-         Dynamic SEO Meta Tags
-    ════════════════════════════════════════════ -->
-    <title>{{ $post['meta_title'] ?? $post['title'] . ' - FitWell Blog' }}</title>
+    <title>{{ $post['meta_title'] ?? $post['title'] . ' - ' . \App\Models\SiteSetting::getValue('site_name', 'Daily Shark Finds') }}</title>
     <meta name="description" content="{{ $post['meta_description'] ?? $post['excerpt'] }}">
 
     @if(isset($post['focus_keywords']))
@@ -20,7 +17,7 @@
     <meta property="og:description" content="{{ $post['meta_description'] ?? $post['excerpt'] }}">
     <meta property="og:image"       content="{{ $post['image'] }}">
     <meta property="og:url"         content="{{ url()->current() }}">
-    <meta property="og:site_name"   content="FitWell">
+    <meta property="og:site_name"   content="{{ \App\Models\SiteSetting::getValue('site_name', 'Daily Shark Finds') }}">
 
     <!-- Twitter Card -->
     <meta name="twitter:card"        content="summary_large_image">
@@ -28,315 +25,171 @@
     <meta name="twitter:description" content="{{ $post['meta_description'] ?? $post['excerpt'] }}">
     <meta name="twitter:image"       content="{{ $post['image'] }}">
 
-    <!-- ═══════════════════════════════════════════
-         JSON-LD BlogPosting Schema (if available)
-    ════════════════════════════════════════════ -->
     @if(isset($post['schema']))
     <script type="application/ld+json">
     {!! json_encode($post['schema'], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) !!}
     </script>
     @endif
 
+    <link rel="icon" type="image/png" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=4">
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-    <!-- Fonts -->
-    <link rel="icon" type="image/jpeg" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
-    <link rel="apple-touch-icon" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
-    
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Arial', 'sans-serif'],
-                    },
-                    colors: {
-                        brand: {
-                            light: '#a7f3d0',
-                            DEFAULT: '#10b981',
-                            dark: '#047857',
-                        },
-                        dark: {
-                            DEFAULT: '#1f2937',
-                            darker: '#111827',
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        /* US-style Journalism Prose styling — excludes .not-prose blocks */
-        .prose h2:not(.not-prose *) {
-            font-size: 2rem;
-            font-weight: 800;
-            margin-top: 2.5rem;
-            margin-bottom: 1.25rem;
-            color: #111827;
-            letter-spacing: -0.025em;
-        }
-        .prose h3:not(.not-prose *) {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-top: 2rem;
-            margin-bottom: 1rem;
-            color: #1f2937;
-        }
-        .prose p:not(.not-prose *) {
-            margin-bottom: 1.5rem;
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: #374151;
-        }
-        .prose ul:not(.not-prose *) {
-            list-style-type: disc;
-            padding-left: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-        .prose li:not(.not-prose *) {
-            margin-bottom: 0.75rem;
-            font-size: 1.125rem;
-            color: #374151;
-            line-height: 1.6;
-        }
-        .prose strong:not(.not-prose *) {
-            font-weight: 700;
-            color: #111827;
-        }
-        .prose a:not(.not-prose *) {
-            color: #10b981;
-            text-decoration: underline;
-            text-underline-offset: 4px;
-        }
-        .prose a:not(.not-prose *):hover {
-            color: #047857;
-        }
+        /* Prose styling for article content */
+        .prose h2 { font-size: 2rem; font-weight: 800; margin-top: 2.5rem; margin-bottom: 1.25rem; color: #111827; letter-spacing: -0.025em; }
+        .prose h3 { font-size: 1.5rem; font-weight: 700; margin-top: 2rem; margin-bottom: 1rem; color: #1f2937; }
+        .prose p { margin-bottom: 1.5rem; font-size: 1.125rem; line-height: 1.8; color: #374151; }
+        .prose ul { list-style-type: disc; padding-left: 1.5rem; margin-bottom: 1.5rem; }
+        .prose li { margin-bottom: 0.75rem; font-size: 1.125rem; color: #374151; line-height: 1.6; }
+        .prose strong { font-weight: 700; color: #111827; }
+        .prose a { color: #10b981; text-decoration: underline; text-underline-offset: 4px; }
+        .prose a:hover { color: #047857; }
     </style>
 </head>
-<body class="font-sans antialiased bg-gray-50 text-dark selection:bg-brand selection:text-white">
+<body class="min-h-screen bg-[#fcfbf8] font-sans text-[#171717] antialiased">
+    <x-site.header :categories="$categories" />
 
-    <!-- Header / Menu -->
-    <header class="fixed w-full top-0 z-50 glass shadow-sm bg-white/95 backdrop-blur-xl" id="navbar">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16 md:h-20">
-                <!-- Logo -->
-                <a href="{{ url('/') }}" class="flex-shrink-0 flex items-center gap-2.5 cursor-pointer group" aria-label="HomeWellness Home">
-                    <div class="relative w-10 h-10 md:w-12 md:h-12 flex-shrink-0 overflow-hidden rounded-full shadow-md ring-2 ring-brand/20 group-hover:ring-brand/50 transition-all duration-300 bg-white">
-                        <img src="{{ asset(\App\Models\SiteSetting::getValue('logo', 'images/logo-optimized.jpg')) }}" alt="HomeWellness logo" class="w-full h-full object-contain" fetchpriority="high" loading="eager" />
-                    </div>
-                    <div class="leading-none">
-                        <span class="block text-base md:text-lg font-extrabold tracking-tight text-dark-darker group-hover:text-brand transition-colors duration-200">HomeWellness</span>
-                        <span class="block text-[10px] md:text-xs text-brand font-semibold tracking-widest uppercase">Smart Home Vitality</span>
-                    </div>
-                </a>
-                
-                <!-- Desktop Menu -->
-                <nav class="hidden md:flex space-x-8 lg:space-x-10">
-                    <a href="{{ url('/') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Home</a>
-                    <a href="{{ route('blog.index') }}" class="text-brand font-bold transition-colors duration-200">Blog</a>
-                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Health</a>
-                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-dark font-medium hover:text-brand transition-colors duration-200">Training</a>
-                </nav>
+    <main class="mx-auto max-w-[1440px] px-5 py-10 sm:px-8 sm:py-14 lg:px-10 lg:py-16">
+        <!-- Breadcrumbs -->
+        <nav class="mb-8 text-sm text-slate-500" aria-label="Breadcrumb">
+            <a href="/" class="hover:text-[#047857] transition-colors">Home</a>
+            <span class="mx-2">›</span>
+            <a href="{{ route('blog.index') }}" class="hover:text-[#047857] transition-colors">Blog</a>
+            <span class="mx-2">›</span>
+            <span class="text-slate-900 font-medium truncate">{{ $post['title'] }}</span>
+        </nav>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" class="text-dark hover:text-brand focus:outline-none p-2" aria-label="Toggle menu">
-                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                        </svg>
-                    </button>
-                </div>
-            </div>
-            <!-- Mobile Menu Dropdown -->
-            <div id="mobile-menu" class="md:hidden hidden pb-4">
-                <nav class="flex flex-col gap-1">
-                    <a href="{{ url('/') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Home</a>
-                    <a href="{{ route('blog.index') }}" class="px-4 py-2.5 rounded-lg text-brand font-bold hover:bg-brand/5 transition-all duration-200">Blog</a>
-                    <a href="{{ url('/health/smart-home-wellness-tools') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Health</a>
-                    <a href="{{ url('/training/best-whey-protein-home-gear') }}" class="px-4 py-2.5 rounded-lg text-dark font-medium hover:text-brand hover:bg-brand/5 transition-all duration-200">Training</a>
-                </nav>
-            </div>
-        </div>
-    </header>
+        <div class="flex flex-col lg:flex-row gap-12">
+            <!-- Main Article Content -->
+            <article class="w-full lg:w-2/3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-10">
 
-    <main class="pt-28 pb-20">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <!-- Breadcrumbs -->
-            <nav class="flex text-sm text-gray-500 mb-8" aria-label="Breadcrumb">
-                <ol class="inline-flex items-center space-x-1 md:space-x-3">
-                    <li class="inline-flex items-center">
-                        <a href="{{ url('/') }}" class="hover:text-brand transition-colors">Home</a>
-                    </li>
-                    <li>
-                        <div class="flex items-center">
-                            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            <a href="{{ route('blog.index') }}" class="hover:text-brand transition-colors">Blog</a>
-                        </div>
-                    </li>
-                    <li aria-current="page">
-                        <div class="flex items-center">
-                            <svg class="w-4 h-4 mx-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                            <span class="text-gray-900 font-medium truncate max-w-[200px] sm:max-w-md">{{ $post['title'] }}</span>
-                        </div>
-                    </li>
-                </ol>
-            </nav>
+                <!-- Article Header -->
+                <header class="mb-10">
+                    <span class="mb-4 inline-block rounded-full bg-emerald-50 px-3 py-1 text-xs font-bold uppercase tracking-[0.16em] text-[#047857]">
+                        {{ $post['category'] }}
+                    </span>
 
-            <div class="flex flex-col lg:flex-row gap-12">
-                
-                <!-- Main Article Content -->
-                <article class="w-full lg:w-2/3 bg-white p-6 sm:p-10 rounded-3xl shadow-sm border border-gray-100">
-                    
-                    <!-- Article Header -->
-                    <header class="mb-10">
-                        <span class="inline-block px-3 py-1 bg-brand/10 text-brand text-xs font-bold rounded-full uppercase tracking-wider mb-4">
-                            {{ $post['category'] }}
-                        </span>
-                        
-                        <h1 class="text-4xl sm:text-5xl font-black text-dark-darker tracking-tight leading-tight mb-6">
-                            {{ $post['title'] }}
-                        </h1>
-                        
-                        <!-- Meta info -->
-                        <div class="flex flex-wrap items-center gap-4 text-sm text-gray-500 font-medium border-y border-gray-100 py-4">
-                            <div class="flex items-center gap-2">
-                                <div class="w-8 h-8 rounded-full bg-brand flex items-center justify-center text-white font-bold">
-                                    {{ substr($post['author'] ?? 'Editor', 0, 1) }}
-                                </div>
-                                <span class="text-dark-darker font-bold">{{ $post['author'] ?? 'FitWell Expert' }}</span>
+                    <h1 class="mb-6 font-serif text-4xl font-bold leading-tight tracking-[-0.03em] text-[#171717] sm:text-5xl">
+                        {{ $post['title'] }}
+                    </h1>
+
+                    <!-- Meta info -->
+                    <div class="flex flex-wrap items-center gap-4 border-y border-slate-100 py-4 text-sm text-slate-500">
+                        <div class="flex items-center gap-2">
+                            <div class="flex h-8 w-8 items-center justify-center rounded-full bg-[#10b981] font-bold text-white">
+                                {{ substr($post['author'] ?? 'E', 0, 1) }}
                             </div>
-                            <span class="hidden sm:inline-block w-1 h-1 rounded-full bg-gray-300"></span>
-                            <span>{{ $post['date'] }}</span>
-                            <span class="hidden sm:inline-block w-1 h-1 rounded-full bg-gray-300"></span>
-                            <span class="flex items-center">
-                                <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                {{ $post['read_time'] ?? '5 min read' }}
-                            </span>
+                            <span class="font-bold text-[#171717]">{{ $post['author'] ?? 'Editor' }}</span>
                         </div>
-                    </header>
-
-                    <!-- Featured Image -->
-                    <figure class="mb-10">
-                        <img src="{{ $post['image'] }}" alt="{{ $post['title'] }}" class="w-full h-auto rounded-2xl object-cover">
-                    </figure>
-
-                    <!-- Article Body (Prose) -->
-                    <div class="prose prose-lg max-w-none">
-                        {!! $post['content'] !!}
+                        <span class="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block"></span>
+                        <span>{{ $post['date'] }}</span>
+                        <span class="hidden h-1 w-1 rounded-full bg-slate-300 sm:inline-block"></span>
+                        <span class="flex items-center">
+                            <svg class="mr-1 h-4 w-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            {{ $post['read_time'] ?? '5 min read' }}
+                        </span>
                     </div>
-                    
-                </article>
+                </header>
 
-                <!-- Sidebar (Desktop only) -->
-                <aside class="w-full lg:w-1/3 space-y-8">
-                    
-                    <!-- Search Widget -->
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-                        <h3 class="text-lg font-bold text-dark-darker mb-4">Search</h3>
-                        <div class="relative">
-                            <input type="text" placeholder="Search articles..." class="w-full pl-4 pr-10 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-brand focus:ring-1 focus:ring-brand transition-colors">
-                            <svg class="w-5 h-5 absolute right-3 top-3.5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                        </div>
+                <!-- Featured Image -->
+                <figure class="mb-10">
+                    <img src="{{ $post['image'] }}" alt="{{ $post['image_alt'] ?? $post['title'] }}" class="w-full rounded-2xl object-cover">
+                </figure>
+
+                <!-- Article Body -->
+                <div class="prose max-w-none">
+                    {!! $post['content'] !!}
+                </div>
+
+                <!-- Buy Now CTA -->
+                @if(!empty($post['affiliate_url']))
+                <div class="mt-12 border-t border-slate-100 pt-8">
+                    <div class="rounded-2xl bg-gradient-to-r from-emerald-50 to-[#f0faf6] p-6 text-center sm:p-8">
+                        <p class="mb-2 text-sm font-semibold uppercase tracking-wider text-[#047857]">Interested in this product?</p>
+                        <p class="mb-6 text-base text-slate-600">Check the latest price and availability on our partner store.</p>
+                        <a href="{{ $post['affiliate_url'] }}" target="_blank" rel="sponsored nofollow noopener"
+                           class="inline-flex items-center gap-2 rounded-xl bg-[#10b981] px-8 py-4 text-lg font-bold text-white shadow-lg shadow-emerald-200 transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#047857] hover:shadow-emerald-300">
+                            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 100 4 2 2 0 000-4z"/>
+                            </svg>
+                            Buy Now
+                        </a>
                     </div>
+                </div>
+                @endif
+            </article>
 
-                   
+            <!-- Sidebar -->
+            <aside class="w-full space-y-8 lg:w-1/3">
+                <!-- Search Widget -->
+                <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <h3 class="mb-4 text-lg font-bold text-[#171717]">Search</h3>
+                    <form action="{{ route('search') }}" method="GET" class="relative">
+                        <input type="search" name="q" placeholder="Search articles..." class="w-full rounded-xl border border-slate-200 bg-slate-50 py-3 pl-4 pr-10 text-sm outline-none transition focus:border-[#10b981] focus:ring-1 focus:ring-[#10b981]">
+                        <button type="submit" class="absolute right-3 top-3.5">
+                            <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                        </button>
+                    </form>
+                </div>
 
-                    <!-- Related Articles Widget -->
-                    @if(isset($relatedPosts) && $relatedPosts->count() > 0)
-                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
-                        <h3 class="text-lg font-bold text-dark-darker mb-6">Related Articles</h3>
-                        <div class="space-y-6">
-                            @foreach($relatedPosts as $related)
-                            <a href="{{ route('blog.show', $related['slug']) }}" class="flex gap-4 group">
-                                <div class="w-20 h-20 flex-shrink-0 rounded-xl overflow-hidden">
-                                    <img src="{{ $related['image'] }}" alt="{{ $related['title'] }}" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500">
-                                </div>
-                                <div class="flex flex-col justify-center">
-                                    <h4 class="text-sm font-bold text-dark-darker group-hover:text-brand transition-colors line-clamp-2 mb-1">
-                                        {{ $related['title'] }}
-                                    </h4>
-                                    <span class="text-xs text-gray-500">{{ $related['date'] }}</span>
-                                </div>
-                            </a>
-                            @endforeach
-                        </div>
+                <!-- Related Articles Widget -->
+                @if(isset($relatedPosts) && $relatedPosts->count() > 0)
+                <div class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+                    <h3 class="mb-6 text-lg font-bold text-[#171717]">Related Articles</h3>
+                    <div class="space-y-6">
+                        @foreach($relatedPosts as $related)
+                        <a href="{{ route('blog.show', $related['slug']) }}" class="group flex gap-4">
+                            <div class="h-20 w-20 flex-shrink-0 overflow-hidden rounded-xl">
+                                <img src="{{ $related['image'] }}" alt="{{ $related['title'] }}" class="h-full w-full object-cover transition duration-500 group-hover:scale-110">
+                            </div>
+                            <div class="flex flex-col justify-center">
+                                <h4 class="mb-1 line-clamp-2 text-sm font-bold text-[#171717] transition group-hover:text-[#047857]">
+                                    {{ $related['title'] }}
+                                </h4>
+                                <span class="text-xs text-slate-500">{{ $related['date'] }}</span>
+                            </div>
+                        </a>
+                        @endforeach
                     </div>
-                    @endif
-
-                </aside>
-
-            </div>
+                </div>
+                @endif
+            </aside>
         </div>
     </main>
 
-    <!-- SEO Footer -->
-    <footer class="bg-[#0b1120] pt-20 pb-10 border-t border-gray-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-                <!-- Brand Col -->
-                <div class="md:col-span-5">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="relative w-12 h-12 flex-shrink-0 overflow-hidden rounded-full ring-2 ring-brand/30 bg-white">
-                            <img src="{{ asset(\App\Models\SiteSetting::getValue('logo', 'images/logo-optimized.jpg')) }}" alt="HomeWellness logo" class="w-full h-full object-contain" loading="lazy" />
-                        </div>
-                        <div class="leading-none">
-                            <span class="block text-lg font-extrabold tracking-tight text-white">HomeWellness</span>
-                            <span class="block text-xs text-brand font-semibold tracking-widest uppercase mt-0.5">Smart Home Vitality</span>
-                        </div>
-                    </div>
-                    <p class="text-gray-400 text-base leading-relaxed mb-6 pr-4">
-                        Reinvent your living space, elevate your health. A comprehensive solution for home workouts and purifying your living environment.
-                    </p>
-                </div>
-                
-                <!-- Links Col 1 -->
-                <div class="md:col-span-3">
-                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
-                    <ul class="space-y-4">
-                        <li><a href="{{ url('/') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Home</a></li>
-                        <li><a href="{{ url('/training/best-whey-protein-home-gear') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Home Training Gear</a></li>
-                        <li><a href="{{ url('/health/smart-home-wellness-tools') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Smart Health Tools</a></li>
-                        <li><a href="{{ route('blog.index') }}" class="text-gray-400 hover:text-brand transition-colors text-base flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-brand"></span> Blog</a></li>
-                    </ul>
-                </div>
-
-                <!-- Links Col 2 -->
-                <div class="md:col-span-4">
-                    <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Top Searches</h4>
-                    <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-400 hover:text-brand transition-colors text-base underline decoration-gray-700 underline-offset-4 hover:decoration-brand">Best home gym equipment 2026</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand transition-colors text-base underline decoration-gray-700 underline-offset-4 hover:decoration-brand">Clean whey protein for sensitive stomach</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-brand transition-colors text-base underline decoration-gray-700 underline-offset-4 hover:decoration-brand">Top-rated cordless vacuums for pet hair</a></li>
-                    </ul>
+    <footer class="mt-20 border-t border-slate-200 bg-[#171717] text-white">
+        <div class="mx-auto grid max-w-[1440px] gap-8 px-4 py-12 sm:px-6 md:grid-cols-[1.5fr_1fr_1fr]">
+            <div>
+                <p class="text-xl font-bold">{{ \App\Models\SiteSetting::getValue('site_name', 'Daily Shark Finds') }}</p>
+                <p class="mt-3 max-w-md text-sm leading-6 text-stone-400">{{ \App\Models\SiteSetting::getValue('site_description', 'Independent reviews and useful buying guides.') }}</p>
+            </div>
+            <div>
+                <p class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-300">Explore</p>
+                <div class="grid gap-2 text-sm text-stone-400"><a href="{{ route('blog.index') }}">Reviews</a><a href="{{ route('contact') }}">Contact</a></div>
+            </div>
+            <div>
+                <p class="mb-3 text-xs font-bold uppercase tracking-wider text-slate-300">Categories</p>
+                <div class="grid gap-2 text-sm text-stone-400">
+                    @foreach($categories->take(6) as $category)
+                        <a href="{{ route('category.show', $category->slug) }}">{{ $category->name }}</a>
+                    @endforeach
                 </div>
             </div>
-            
-            <div class="pt-8 border-t border-gray-800/50 flex flex-col md:flex-row justify-between items-center gap-6">
-                <p class="text-gray-500 text-sm">
-                    &copy; 2026 FitWell - Home Fitness & Wellness. All rights reserved.
-                </p>
-                <p class="text-[11px] text-gray-700 text-center md:text-right max-w-2xl leading-relaxed">
-                    Discovering the <strong>best home gym equipment 2026</strong> has never been easier. We provide highly curated <strong>clean whey protein for sensitive stomach</strong> issues, and review the <strong>top-rated cordless vacuums for pet hair</strong>.
-                </p>
+        </div>
+        <div class="border-t border-white/15">
+            <div class="mx-auto flex max-w-[1440px] flex-col gap-2 px-4 py-5 text-xs text-stone-500 sm:px-6 md:flex-row md:justify-between">
+                <p>{{ \App\Models\SiteSetting::getValue('footer_text', '© 2026 All rights reserved.') }}</p>
+                <p>{{ \App\Models\SiteSetting::getValue('footer_disclaimer', 'As an affiliate, we may earn commissions from qualifying purchases.') }}</p>
             </div>
         </div>
     </footer>
+
     <script>
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        if (mobileMenuBtn && mobileMenu) {
-            mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-        }
+        document.getElementById('mobile-menu-btn')?.addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu?.classList.toggle('hidden');
+            this.setAttribute('aria-expanded', String(!menu?.classList.contains('hidden')));
+        });
     </script>
 </body>
 </html>
-

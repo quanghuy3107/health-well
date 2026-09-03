@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BlogCategory;
 use App\Models\BlogPost;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,7 @@ class BlogController extends Controller
     public function index()
     {
         try {
+            $categories = BlogCategory::active()->orderBy('sort_order')->get();
             $posts = BlogPost::published()
                 ->orderBy('sort_order')
                 ->orderBy('created_at', 'desc')
@@ -20,15 +22,17 @@ class BlogController extends Controller
                 })
                 ->toArray();
         } catch (\Exception $e) {
+            $categories = collect();
             $posts = [];
         }
 
-        return view('blog.index', compact('posts'));
+        return view('blog.index', compact('posts', 'categories'));
     }
 
     public function show($slug)
     {
         try {
+            $categories = BlogCategory::active()->orderBy('sort_order')->get();
             $post = BlogPost::published()->where('slug', $slug)->first();
 
             if (!$post) {
@@ -53,6 +57,6 @@ class BlogController extends Controller
             abort(404);
         }
 
-        return view('blog.show', compact('post', 'relatedPosts', 'posts'));
+        return view('blog.show', compact('post', 'relatedPosts', 'posts', 'categories'));
     }
 }

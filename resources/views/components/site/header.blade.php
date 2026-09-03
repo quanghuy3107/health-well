@@ -37,7 +37,6 @@
             @foreach($categories as $category)
                 <a href="{{ route('category.show', $category->slug) }}" class="whitespace-nowrap py-1 text-[#26342e] transition-colors hover:text-[#047857]">{{ $category->name }}</a>
             @endforeach
-            <a href="{{ route('blog.index') }}" class="whitespace-nowrap py-1 text-[#26342e] transition-colors hover:text-[#047857]">Reviews</a>
             <a href="{{ route('contact') }}" class="whitespace-nowrap py-1 text-[#26342e] transition-colors hover:text-[#047857]">Contact</a>
         </nav>
 
@@ -53,7 +52,6 @@
                 @foreach($categories as $category)
                     <a href="{{ route('category.show', $category->slug) }}" class="rounded-lg px-3 py-2.5 text-sm font-semibold text-[#26342e] hover:bg-emerald-100 hover:text-[#047857]">{{ $category->name }}</a>
                 @endforeach
-                <a href="{{ route('blog.index') }}" class="rounded-lg px-3 py-2.5 text-sm font-semibold text-[#26342e] hover:bg-emerald-100 hover:text-[#047857]">Reviews</a>
                 <a href="{{ route('contact') }}" class="rounded-lg px-3 py-2.5 text-sm font-semibold text-[#26342e] hover:bg-emerald-100 hover:text-[#047857]">Contact</a>
             </div>
         </nav>

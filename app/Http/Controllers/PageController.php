@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Mail\ContactMail;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Exception;
+use App\Models\BlogCategory;
+use App\Models\BlogPost;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -88,6 +90,22 @@ class PageController extends Controller
         if (!file_exists($jsonPath)) return [];
         $all = json_decode(file_get_contents($jsonPath), true);
         return collect($all)->where('category', $category)->values()->toArray();
+    }
+
+    /**
+     * Blog category page — shows posts filtered by blog category.
+     */
+    public function blogCategory($slug)
+    {
+        $categories = BlogCategory::active()->orderBy('sort_order')->get();
+        $category = BlogCategory::where('slug', $slug)->where('is_active', true)->firstOrFail();
+
+        $posts = BlogPost::published()
+            ->where('category', $category->name)
+            ->orderBy('created_at', 'desc')
+            ->paginate(9);
+
+        return view('pages.blog_category', compact('posts', 'category', 'categories'));
     }
 
     public function contact()
