@@ -10,7 +10,7 @@
     <link rel="icon" type="image/jpeg" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
     <link rel="apple-touch-icon" href="{{ asset(\App\Models\SiteSetting::getValue('favicon', 'favicon.jpg')) }}?v=3">
     <!-- <meta name='impact-site-verification' value='a210153d-52b3-4f76-9ed2-da246122b330'> -->
-    <meta name='impact-site-verification' value='e5e20be6-5aaa-4ab0-84a9-c424c6404c9a'>
+    <meta name='impact-site-verification' value='9f399e36-b335-490e-a65c-54d316265ae7'>
     <!-- Tailwind CSS (via CDN for standalone blade file, you can compile via Vite later) -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
